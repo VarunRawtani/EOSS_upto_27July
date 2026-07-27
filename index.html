@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BIBA | EOSS SS26 Executive Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--crim:#9E1B32;--ink:#17121A;--gold:#C8891A;--cotton:#FAF6F1;--card:#FFF;--line:#E8DCD4;--mut:#7D6E74;--up:#2E6B5E;--dn:#B0392C}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cotton);color:var(--ink);font-family:Inter,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:0 32px 90px}
+.mast{padding:60px 0 32px;border-bottom:2px solid var(--ink)}
+.brandrow{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.brand{font-family:Fraunces,serif;font-weight:700;font-size:26px;letter-spacing:.16em;color:var(--crim)}
+.stamp{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:600}
+h1{font-family:Fraunces,serif;font-weight:300;font-size:clamp(36px,5.4vw,62px);line-height:1.04;margin:22px 0 0;letter-spacing:-.02em}
+h1 em{font-style:normal;font-weight:600;color:var(--crim)}
+.dek{max-width:700px;margin:16px 0 0;font-size:17px;color:#4A4045}
+.filterbar{position:sticky;top:0;z-index:20;background:rgba(250,246,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:12px 0}
+.filterinner{max-width:1140px;margin:0 auto;padding:0 32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.flab{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:700}
+.segs{display:inline-flex;border:1px solid var(--ink);background:var(--card)}
+.seg{appearance:none;border:0;background:transparent;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;cursor:pointer;color:var(--ink);border-right:1px solid var(--line);transition:background .15s,color .15s}
+.seg:last-child{border-right:0}
+.seg[aria-pressed="true"]{background:var(--crim);color:#fff}
+.seg:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.fnote{font-size:12px;color:var(--mut);margin-left:auto}
+.sec{margin-top:62px}
+.sec-head{display:flex;align-items:baseline;gap:16px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.sec-idx{font-family:Fraunces,serif;font-size:14px;font-weight:600;color:var(--crim);letter-spacing:.1em}
+.sec-head h2{font-family:Fraunces,serif;font-weight:600;font-size:29px;margin:0;letter-spacing:-.01em}
+.sec-note{margin-left:auto;font-size:12px;color:var(--mut)}
+h3{font-family:Fraunces,serif;font-weight:600;font-size:19px;margin:34px 0 13px}
+.placs{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.plac{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--crim);padding:18px 16px 16px}
+.plac.key{border-top-color:var(--gold);background:#FFFDF8}
+.plac-lab{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.plac-val{font-family:Fraunces,serif;font-weight:600;font-size:28px;line-height:1.1;margin:9px 0 7px;letter-spacing:-.02em}
+.plac-foot{display:flex;flex-direction:column;gap:2px}
+.plac-ly{font-size:11.5px;color:var(--mut)}
+.delta{font-weight:700;font-size:13.5px;font-variant-numeric:tabular-nums}
+.up{color:var(--up)}.dn{color:var(--dn)}.new{color:var(--gold);font-weight:600}
+/* bridge */
+.bridge{display:flex;align-items:stretch;background:var(--card);border:1px solid var(--line);margin-top:20px;overflow-x:auto}
+.br{flex:1;padding:22px 18px;text-align:center;min-width:130px}
+.br.eq{background:var(--crim);color:#fff}
+.br-op{display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-size:22px;color:var(--mut);padding:0 4px;min-width:26px}
+.br-l{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;opacity:.72}
+.br-v{font-family:Fraunces,serif;font-size:30px;font-weight:600;margin:8px 0 3px;letter-spacing:-.02em}
+.br-s{font-size:11.5px;opacity:.75}
+.callout{margin-top:20px;background:#FFF9EE;border:1px solid #EBD9B4;border-left:4px solid var(--gold);padding:16px 20px;font-size:14.5px}
+.callout.crim{background:#FDF4F5;border-color:#EBCBD2;border-left-color:var(--crim)}
+.callout.win{background:#F1F7F4;border-color:#C9E0D6;border-left-color:var(--up)}
+.arc{background:var(--card);border:1px solid var(--line);padding:26px 22px 16px;overflow-x:auto}
+.arc-grid{display:flex;gap:14px;align-items:flex-end;min-width:820px}
+.arc-col{flex:1;text-align:center}
+.arc-plot{height:172px;display:flex;align-items:flex-end;justify-content:center;gap:5px;border-bottom:1px solid var(--line);padding-bottom:2px}
+.arc-bar{width:22px;position:relative}
+.arc-bar.ly{background:#E3D3CE}.arc-bar.ty{background:var(--crim)}
+.arc-tip{position:absolute;top:-21px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--mut);white-space:nowrap;opacity:0;transition:opacity .18s;font-weight:600}
+.arc-col:hover .arc-tip{opacity:1}
+.arc-delta{font-size:13px;font-weight:700;margin-top:9px;font-variant-numeric:tabular-nums}
+.arc-name{font-size:11.5px;font-weight:600;margin-top:3px;line-height:1.3;min-height:30px;display:flex;align-items:flex-start;justify-content:center}
+.arc-date{font-size:10.5px;color:var(--mut)}
+.legend{display:flex;gap:20px;margin-top:14px;font-size:11.5px;color:var(--mut);align-items:center;flex-wrap:wrap}
+.sw{display:inline-block;width:11px;height:11px;margin-right:6px;vertical-align:-1px}
+.sw.ty{background:var(--crim)}.sw.ly{background:#E3D3CE}
+.sw.nw{background:var(--gold)}.sw.ex{background:var(--crim)}.sw.gold{background:var(--gold)}
+.wk{display:flex;gap:12px;align-items:flex-end;background:var(--card);border:1px solid var(--line);padding:22px 20px 12px;overflow-x:auto}
+.wk-col{flex:1;text-align:center;min-width:64px}
+.wk-plot{height:104px;display:flex;align-items:flex-end;justify-content:center;gap:4px;border-bottom:1px solid var(--line)}
+.wk-bar{width:17px}.wk-bar.ly{background:#E3D3CE}.wk-bar.ty{background:var(--crim)}
+.wk-d{font-size:12px;font-weight:700;margin-top:8px}
+.wk-n{font-size:11px;color:var(--mut);font-weight:600}
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);font-size:13.5px}
+.tbl th{background:#F4EBE4;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#5E5057;font-weight:700;text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tbl th.l{text-align:left}
+.tbl td{padding:10px 12px;text-align:right;border-bottom:1px solid #F1E7E0;font-variant-numeric:tabular-nums}
+.tbl td.tl{text-align:left;font-weight:600}
+.tbl td.mut{color:var(--mut);text-align:left;font-size:12.5px}
+.tbl td.strong{font-weight:700}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr.rw-hi td{background:#FDF4F5}
+.tbl tr.rw-ov td{background:#F7F3EE;color:#6B5D63;font-style:italic}
+.tbl tr.rw-tot td{background:#F4EBE4;font-weight:700;border-top:1px solid var(--line)}
+.ovtag{font-style:normal;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-left:6px}
+.part{font-size:10px;color:var(--gold);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.scroll{overflow-x:auto}
+.fn{font-size:12.5px;color:var(--mut);margin-top:10px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.chan{background:var(--card);border:1px solid var(--line);padding:20px}
+.chan-t{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.chan-v{font-family:Fraunces,serif;font-size:29px;font-weight:600;margin:8px 0 4px}
+.chan-m{font-size:13px;color:var(--mut)}
+.bar-mix{height:8px;background:#EFE3DC;margin-top:14px;display:flex;overflow:hidden}
+.bar-mix i{display:block;height:100%}
+/* stacked share bars */
+.share{margin-top:6px}
+.share-row{display:flex;align-items:center;gap:12px;padding:7px 0}
+.share-lab{width:112px;font-size:12.5px;font-weight:600;flex-shrink:0}
+.share-bar{flex:1;height:22px;display:flex;background:#F1E7E0;overflow:hidden;min-width:150px}
+.share-bar i{display:block;height:100%;position:relative}
+.share-bar i.nw{background:var(--gold)}.share-bar i.ex{background:var(--crim)}
+.share-v{font-size:11.5px;font-weight:700;color:#fff;position:absolute;left:8px;top:3px}
+.share-v.dk{color:var(--ink)}
+.share-num{width:86px;text-align:right;font-size:12.5px;color:var(--mut);font-variant-numeric:tabular-nums;flex-shrink:0}
+.contrast{display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--card);border:1px solid var(--line)}
+.ct{padding:24px 20px;border-right:1px solid var(--line)}
+.ct:last-child{border-right:none}
+.ct.hero{background:var(--crim);color:#fff}
+.ct-l{font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:600;opacity:.75}
+.ct-v{font-family:Fraunces,serif;font-size:36px;font-weight:600;line-height:1.08;margin:10px 0 6px;letter-spacing:-.02em}
+.ct-s{font-size:13px;opacity:.8;line-height:1.45}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.kp{background:var(--card);border:1px solid var(--line);padding:19px}
+.kp-l{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.kp-v{font-family:Fraunces,serif;font-size:28px;font-weight:600;margin:8px 0 3px}
+.kp-s{font-size:12.5px;color:var(--mut)}
+.na{background:var(--card);border:1px dashed var(--line);padding:34px 26px;text-align:center;color:var(--mut);font-size:14.5px}
+.na b{color:var(--ink);font-weight:600}
+.foot{margin-top:70px;padding-top:22px;border-top:1px solid var(--line);font-size:12px;color:var(--mut);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hide{display:none!important}
+@media(max-width:1000px){.placs{grid-template-columns:repeat(3,1fr)}.trio{grid-template-columns:1fr}}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.duo,.contrast{grid-template-columns:1fr}
+ .ct{border-right:none;border-bottom:1px solid var(--line)}.wrap,.filterinner{padding-left:20px;padding-right:20px}
+ .placs{grid-template-columns:repeat(2,1fr)}.bridge{flex-direction:column}.br-op{padding:6px 0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{body{background:#fff}.filterbar{position:static}.sec{page-break-inside:avoid}.arc-tip{display:none}}
+</style></head><body>
+<div class="wrap">
+<header class="mast">
+  <div class="brandrow"><div class="brand">BIBA</div><div class="stamp">Executive Review &middot; Confidential</div></div>
+  <h1>End of Season Sale <em>SS26</em><br>performance to date</h1>
+  <p class="dek" id="dek"></p>
+</header>
+</div>
+
+<div class="filterbar"><div class="filterinner">
+  <span class="flab">View</span>
+  <div class="segs" role="group" aria-label="Channel view">
+    <button class="seg" data-m="all" aria-pressed="true">Overall</button>
+    <button class="seg" data-m="offline" aria-pressed="false">Offline</button>
+    <button class="seg" data-m="online" aria-pressed="false">Online</button>
+  </div>
+  <span class="fnote" id="fnote"></span>
+</div></div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head"><span class="sec-idx">01</span><h2>Overall performance</h2><span class="sec-note">5 June &ndash; 26 July &middot; like-for-like dates</span></div>
+  <div class="placs" id="placs"></div>
+  <h3>Growth drivers</h3>
+  <div class="bridge" id="bridge"></div>
+  <div class="callout win" id="bridgeNote"></div>
+  <h3>Where we land</h3>
+  <div class="contrast" id="projBox"></div>
+  <div class="callout win" id="projNote"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><span class="sec-idx">02</span><h2>Phase-wise performance</h2><span class="sec-note">Phase by phase against last year &middot; through 19 Jul</span></div>
+  <div class="arc"><div class="arc-grid" id="arc"></div>
+    <div class="legend"><span><i class="sw ty"></i>SS26</span><span><i class="sw ly"></i>SS25</span><span>Hover a phase for values</span></div></div>
+  <div class="scroll" style="margin-top:18px"><table class="tbl">
+    <thead><tr><th class="l">Phase</th><th class="l">Dates</th><th>SS25</th><th>SS26</th><th>YoY</th><th>ABV</th><th>Per day</th></tr></thead>
+    <tbody id="phaseTbl"></tbody></table></div>
+  <p class="fn">Phases are contiguous date bands and sum to the full sale. Extra 10% is shown as an overlay across Pre-Preview and Preview &mdash; it is not an additional phase. SuperSale ran in staggered store-level waves: Wave 1 24&ndash;28 Jun, Wave 2 30 Jun&ndash;5 Jul, Wave 3 from 10&ndash;19 Jul.</p>
+  <div class="callout crim" id="phaseNote"></div>
+  <h3>New vs existing by phase</h3>
+  <div class="chan" style="padding:22px 20px"><div class="share" id="neShare"></div>
+    <div class="legend"><span><i class="sw ex"></i>Existing</span><span><i class="sw nw"></i>New</span><span>Bar shows share of phase revenue &middot; figure on the right is phase revenue</span></div></div>
+  <div class="scroll" style="margin-top:18px"><table class="tbl">
+    <thead><tr><th class="l">Phase</th><th>New</th><th>New YoY</th><th>Existing</th><th>Existing YoY</th><th>Existing share</th></tr></thead>
+    <tbody id="nePhaseTbl"></tbody></table></div>
+  <div class="callout" id="nePhaseNote"></div>
+  <h3>Weekly performance</h3>
+  <div class="legend" style="margin-bottom:10px"><span><i class="sw ly"></i>SS25</span><span><i class="sw ty"></i>SS26</span><span>Bars show weekly revenue &middot; figure below each pair is YoY</span></div>
+  <div class="wk" id="wk"></div>
+  <div class="scroll" style="margin-top:16px"><table class="tbl">
+    <thead><tr><th class="l">Week</th><th class="l">Dates</th><th>SS25</th><th>SS26</th><th>YoY</th></tr></thead>
+    <tbody id="wkTbl"></tbody></table></div>
+  <div id="chanBlock"><h3>Channel mix</h3><div class="duo" id="chanDuo"></div></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><span class="sec-idx">03</span><h2>New vs existing customers</h2><span class="sec-note">Revenue by customer type &middot; through 26 Jul</span></div>
+  <div class="duo" id="neDuo"></div>
+  <div class="scroll" style="margin-top:18px"><table class="tbl">
+    <thead><tr><th class="l">Customer type</th><th>SS26 revenue</th><th>YoY</th><th>Unique customers</th><th>Bills</th><th>Frequency</th><th>ABV</th><th>Share</th></tr></thead>
+    <tbody id="neTbl"></tbody></table></div>
+  <h3>Lifecycle segments</h3>
+  <div class="scroll"><table class="tbl">
+    <thead><tr><th class="l">Lifecycle stage</th><th>SS26 revenue</th><th>YoY</th><th>Unique customers</th><th>Bills</th><th>Frequency</th><th>ABV</th><th>Share</th></tr></thead>
+    <tbody id="segTbl"></tbody></table></div>
+  <div class="callout win" id="neNote"></div>
+  <div id="xShop"></div>
+</section>
+
+<section class="sec" id="ssSec">
+  <div class="sec-head"><span class="sec-idx">04</span><h2>SuperSale performance</h2><span class="sec-note" id="ssNote"></span></div>
+  <div id="ssBody"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><span class="sec-idx">05</span><h2>CRM performance</h2><span class="sec-note" id="crmNote"></span></div>
+  <div class="kpis" id="crmKpis"></div>
+  <div class="scroll" style="margin-top:22px"><table class="tbl">
+    <thead><tr><th class="l">Phase</th><th class="l">Dates</th><th>Delivered</th><th>Shoppers</th><th>Sales</th><th>Spend</th><th>ROAS</th></tr></thead>
+    <tbody id="crmTbl"></tbody></table></div>
+  <div class="callout win" id="crmCall"></div>
+  <h3>Targeting and conversion, week by week</h3>
+  <div class="arc" style="padding:24px 22px 14px"><div id="crmChart"></div>
+    <div class="legend"><span><i class="sw ty"></i>Delivered</span><span><i class="sw gold"></i>Conversion %</span><span>Offline test group</span></div></div>
+  <h3>Test vs control</h3>
+  <div class="trio" id="tcTrio"></div>
+  <div class="scroll" style="margin-top:18px"><table class="tbl">
+    <thead><tr><th class="l">Week</th><th class="l">Dates</th><th>Test conv</th><th>Control conv</th><th>Lift</th><th>Incremental customers</th><th>Incremental revenue</th></tr></thead>
+    <tbody id="tcTbl"></tbody></table></div>
+  <p class="fn">Lift is measured on the delivered base against a matched control holdout. Week 7 is excluded as no control was held. Incremental revenue values incremental customers at the offline average bill value. Weeks where the control out-converted the test are floored to zero (no measurable lift) and excluded from the pooled total, so the total reflects only weeks with positive lift.</p>
+  <div class="callout win" id="tcNote"></div>
+  <h3>Targeted vs Achieved &middot; first three weeks</h3>
+  <h4 style="margin:14px 0 6px;font-size:13px;color:var(--mut)">Offline campaigns</h4><div class="scroll"><table class="tbl"><thead><tr><th class="l">Phase</th><th class="l">Basis</th><th>Delivered</th><th>Shoppers</th><th>Sales</th><th>Cost</th><th>ROAS</th></tr></thead><tbody><tr><td class="tl" rowspan="2">Pre-Preview</td><td class="mut">Targeted 5–7 Jun</td><td>9,85,920</td><td>1,772</td><td>₹83.28 L</td><td>₹12.91 L</td><td>6.5×</td></tr><tr class="rw-hi"><td class="mut">Achieved</td><td>6,20,616</td><td>1,505</td><td class="strong">₹96.81 L</td><td>₹2.46 L</td><td class="strong up">39.4×</td></tr><tr><td class="tl" rowspan="2">Preview</td><td class="mut">Targeted 8–14 Jun</td><td>46,02,982</td><td>6,783</td><td>₹3.19 Cr</td><td>₹37.90 L</td><td>8.4×</td></tr><tr class="rw-hi"><td class="mut">Achieved</td><td>67,19,467</td><td>10,873</td><td class="strong">₹6.44 Cr</td><td>₹29.76 L</td><td class="strong up">21.6×</td></tr><tr><td class="tl" rowspan="2">Week 1</td><td class="mut">Targeted 15–21 Jun</td><td>32,00,569</td><td>4,801</td><td>₹2.26 Cr</td><td>₹33.90 L</td><td>6.7×</td></tr><tr class="rw-hi"><td class="mut">Achieved</td><td>16,44,844</td><td>4,485</td><td class="strong">₹2.41 Cr</td><td>₹3.86 L</td><td class="strong up">62.3×</td></tr></tbody></table></div>
+  <h4 style="margin:14px 0 6px;font-size:13px;color:var(--mut)">Online campaigns</h4><div class="scroll"><table class="tbl"><thead><tr><th class="l">Phase</th><th class="l">Basis</th><th>Delivered</th><th>Shoppers</th><th>Sales</th><th>Cost</th><th>ROAS</th></tr></thead><tbody><tr><td class="tl" rowspan="2">Pre-Preview</td><td class="mut">Targeted 5–7 Jun</td><td>4,59,446</td><td>778</td><td>₹23.36 L</td><td>₹2.10 L</td><td>11.1×</td></tr><tr class="rw-hi"><td class="mut">Achieved</td><td>12,11,446</td><td>1,624</td><td class="strong">₹57.85 L</td><td>₹2.04 L</td><td class="strong up">28.3×</td></tr><tr><td class="tl" rowspan="2">Preview</td><td class="mut">Targeted 8–14 Jun</td><td>24,57,388</td><td>1,583</td><td>₹47.49 L</td><td>₹4.32 L</td><td>11.0×</td></tr><tr class="rw-hi"><td class="mut">Achieved</td><td>16,16,900</td><td>3,146</td><td class="strong">₹1.21 Cr</td><td>₹5.26 L</td><td class="strong up">22.9×</td></tr><tr><td class="tl" rowspan="2">Week 1</td><td class="mut">Targeted 15–21 Jun</td><td>14,51,381</td><td>1,131</td><td>₹33.93 L</td><td>₹2.54 L</td><td>13.4×</td></tr><tr class="rw-hi"><td class="mut">Achieved</td><td>6,42,876</td><td>838</td><td class="strong">₹32.41 L</td><td>₹1.22 L</td><td class="strong up">26.6×</td></tr></tbody></table></div>
+  <p class="fn">Targeted = pre-campaign plan; Achieved = actual delivery and attributed sales. ROAS = attributed sales ÷ cost. Covers the first three campaign weeks (5–21 June) on the 19 July reporting basis. Cost uses ₹0.90 WhatsApp / ₹0.10 SMS / ₹0 email per delivered message.</p>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><span class="sec-idx">06</span><h2>Journey performance</h2><span class="sec-note">June and July &middot; triggered programmes &middot; through 19 Jul</span></div>
+  <div class="kpis" id="jKpis"></div>
+  <h3>Offline journeys</h3>
+  <div class="scroll"><table class="tbl">
+    <thead><tr><th class="l">Journey</th><th class="l">Type</th><th class="l">Channel</th><th>Vouchers issued</th><th>Delivered</th><th>Shoppers</th><th>Conv %</th><th>Vouchers redeemed</th><th>Sales</th></tr></thead>
+    <tbody id="jOff"></tbody></table></div>
+  <p class="fn">Non-lookbook journeys carry a voucher, and sales are attributed on redemption. Lookbook journeys send a lookbook rather than a voucher, so no voucher figures apply.</p>
+  <h3>Online journeys</h3>
+  <div class="scroll"><table class="tbl">
+    <thead><tr><th class="l">Journey</th><th>Delivered</th><th>Opens</th><th>Open %</th><th>Customers</th><th>Conv %</th><th>Sales</th></tr></thead>
+    <tbody id="jOn"></tbody></table></div>
+  <div class="callout" id="jNote"></div>
+</section>
+
+
+<section class="sec">
+  <div class="sec-head"><span class="sec-idx">07</span><h2>Closed-store migration</h2><span class="sec-note">Customers of closed/migrated stores retained in-network &middot; 5 Jun &ndash; 19 Jul</span></div>
+  <div class="trio">
+    <div class="chan"><div class="chan-t">Revenue retained</div><div class="chan-v">₹2.46 Cr</div><div class="chan-m">from 5,228 moved customers (movement instances)</div></div>
+    <div class="chan"><div class="chan-t">Contactable base</div><div class="chan-v">0.71%</div><div class="chan-m">migrated — 4,258 customers worth ₹2.02 Cr (82.2%)</div></div>
+    <div class="chan"><div class="chan-t">Non-contactable base</div><div class="chan-v">0.38%</div><div class="chan-m">migrated — 970 customers worth ₹43.80 L (17.8%)</div></div>
+  </div>
+  <div class="scroll" style="margin-top:18px"><table class="tbl">
+    <thead><tr><th class="l">Base</th><th>Customers in base</th><th>Migrated</th><th>Migration rate</th><th>Revenue</th><th>Share of movement sales</th></tr></thead>
+    <tbody>
+    <tr><td class="tl">Contactable</td><td>5,96,641</td><td>4,258</td><td class="strong up">0.71%</td><td class="strong">₹2.02 Cr</td><td class="mut" style="text-align:right">82.2%</td></tr>
+    <tr><td class="tl">Non-contactable</td><td>2,55,603</td><td>970</td><td>0.38%</td><td>₹43.80 L</td><td class="mut" style="text-align:right">17.8%</td></tr>
+    <tr class="rw-tot"><td class="tl">Total</td><td>8,52,244</td><td>5,228</td><td>0.61%</td><td>₹2.46 Cr</td><td style="text-align:right">100.0%</td></tr>
+    </tbody></table></div>
+  <h3>Top migrated stores</h3>
+  <div class="scroll"><table class="tbl">
+    <thead><tr><th class="l">Store</th><th class="l">City</th><th class="l">Region</th><th>Contactable moved</th><th>Non-contactable moved</th><th>Total moved</th><th>Sales</th></tr></thead>
+    <tbody>
+    <tr><td class="tl">VD3</td><td class="mut">Vadodara</td><td class="mut">West</td><td>156</td><td>35</td><td class="strong">191</td><td class="strong">₹10.30 L</td></tr>
+    <tr><td class="tl">PT2</td><td class="mut">Patna</td><td class="mut">East</td><td>167</td><td>20</td><td class="strong">187</td><td class="strong">₹8.68 L</td></tr>
+    <tr><td class="tl">SNG-OLD</td><td class="mut">New Delhi</td><td class="mut">North</td><td>123</td><td>30</td><td class="strong">153</td><td class="strong">₹8.46 L</td></tr>
+    <tr><td class="tl">CMC</td><td class="mut">Kolkata</td><td class="mut">East</td><td>126</td><td>21</td><td class="strong">147</td><td class="strong">₹7.69 L</td></tr>
+    <tr><td class="tl">MNG</td><td class="mut">Mangalore</td><td class="mut">South</td><td>104</td><td>16</td><td class="strong">120</td><td class="strong">₹5.19 L</td></tr>
+    <tr><td class="tl">RAJ</td><td class="mut">Rajkot</td><td class="mut">West</td><td>100</td><td>17</td><td class="strong">117</td><td class="strong">₹5.16 L</td></tr>
+    <tr><td class="tl">NOD</td><td class="mut">Noida</td><td class="mut">North</td><td>71</td><td>25</td><td class="strong">96</td><td class="strong">₹5.38 L</td></tr>
+    </tbody></table></div>
+  <h3>Week-wise movement</h3>
+  <div class="scroll"><table class="tbl">
+    <thead><tr><th class="l">Week</th><th class="l">Dates</th><th>Contactable moved</th><th>Non-contactable moved</th><th>Total moved</th><th>Contactable sales</th><th>Non-contactable sales</th><th>Total sales</th></tr></thead>
+    <tbody>
+    <tr><td class="tl">Pre-Week</td><td class="mut">5 Jun</td><td>59</td><td>15</td><td>74</td><td>₹3.05 L</td><td>₹0.62 L</td><td class="strong">₹3.66 L</td></tr>
+    <tr><td class="tl">Week 1</td><td class="mut">6–12 Jun</td><td>774</td><td>140</td><td>914</td><td>₹40.54 L</td><td>₹6.52 L</td><td class="strong">₹47.06 L</td></tr>
+    <tr><td class="tl">Week 2</td><td class="mut">13–19 Jun</td><td>684</td><td>136</td><td>820</td><td>₹30.15 L</td><td>₹5.12 L</td><td class="strong">₹35.27 L</td></tr>
+    <tr><td class="tl">Week 3</td><td class="mut">20–26 Jun</td><td>626</td><td>165</td><td>791</td><td>₹30.90 L</td><td>₹7.34 L</td><td class="strong">₹38.24 L</td></tr>
+    <tr><td class="tl">Week 4</td><td class="mut">27 Jun–03 Jul</td><td>649</td><td>152</td><td>801</td><td>₹30.46 L</td><td>₹7.34 L</td><td class="strong">₹37.81 L</td></tr>
+    <tr><td class="tl">Week 5</td><td class="mut">04–10 Jul</td><td>627</td><td>156</td><td>783</td><td>₹29.40 L</td><td>₹6.70 L</td><td class="strong">₹36.10 L</td></tr>
+    <tr><td class="tl">Week 6</td><td class="mut">11–17 Jul</td><td>595</td><td>149</td><td>744</td><td>₹26.16 L</td><td>₹6.93 L</td><td class="strong">₹33.10 L</td></tr>
+    </tbody></table></div>
+  <p class="fn">Counts are movement instances, not unique customers. Week 7 (18–19 Jul) is partial; base values are informational counts.</p>
+  <div class="callout win"><b>Being contactable is the single clearest retention lever.</b> Reachable customers migrated at roughly twice the non-contactable rate (0.71% vs 0.38%) and generated ₹2.02 Cr of the ₹2.46 Cr total — 82.2% of movement sales. Growing the contactable base is the clearest way to carry revenue through a store transition.</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><span class="sec-idx">08</span><h2>VIP10 coupon redemption</h2><span class="sec-note">Weekly consumption &middot; online vs offline, with offline ADL split</span></div>
+  <div class="trio">
+    <div class="chan"><div class="chan-t">Online VIP10</div><div class="chan-v">1,618</div><div class="chan-m">redemptions</div></div>
+    <div class="chan"><div class="chan-t">Offline VIP10</div><div class="chan-v">2,822</div><div class="chan-m">redemptions</div></div>
+    <div class="chan"><div class="chan-t">Combined</div><div class="chan-v">4,440</div><div class="chan-m">total redemptions</div></div>
+  </div>
+  <h3>Weekly consumption</h3>
+  <div class="scroll"><table class="tbl">
+    <thead><tr><th class="l">Week</th><th class="l">Dates</th><th>Online VIP10</th><th>Offline VIP10</th><th>Total</th></tr></thead>
+    <tbody>
+    <tr><td class="tl">Pre-Week</td><td class="mut">05 Jun</td><td>85</td><td>40</td><td class="strong">125</td></tr>
+    <tr><td class="tl">Week 1</td><td class="mut">06–12 Jun</td><td>751</td><td>804</td><td class="strong">1,555</td></tr>
+    <tr><td class="tl">Week 2</td><td class="mut">13–19 Jun</td><td>554</td><td>1,013</td><td class="strong">1,567</td></tr>
+    <tr><td class="tl">Week 3</td><td class="mut">20–26 Jun</td><td>216</td><td>622</td><td class="strong">838</td></tr>
+    <tr><td class="tl">Week 4</td><td class="mut">27 Jun–03 Jul</td><td>12</td><td>343</td><td class="strong">355</td></tr>
+    <tr class="rw-tot"><td class="tl">Grand Total</td><td></td><td>1,618</td><td>2,822</td><td>4,440</td></tr>
+    </tbody></table></div>
+  <h3>Offline VIP10 &middot; ADL-wise redemption</h3>
+  <div class="scroll"><table class="tbl">
+    <thead><tr><th class="l">Segment</th><th>Redemptions</th></tr></thead>
+    <tbody>
+    <tr><td class="tl">Active</td><td>1,782</td></tr>
+    <tr><td class="tl">Recent Lapsed</td><td>390</td></tr>
+    <tr><td class="tl">New</td><td>191</td></tr>
+    <tr><td class="tl">Long Lapsed</td><td>185</td></tr>
+    <tr><td class="tl">Lapsed</td><td>153</td></tr>
+    <tr><td class="tl">Dormant</td><td>121</td></tr>
+    <tr class="rw-tot"><td class="tl">Grand Total</td><td>2,822</td></tr>
+    </tbody></table></div>
+  <p class="fn">VIP10 is a separate coupon from the Extra 10% Off. Figures are redemption counts.</p>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><span class="sec-idx">09</span><h2>Extra 10% Off coupon</h2><span class="sec-note">Coupon consumption 5 Jun &ndash; 3 Jul &middot; weekwise spend and ADL view</span></div>
+  <div class="kpis">
+    <div class="kp"><div class="kp-l">Distinct customers</div><div class="kp-v">9,468</div><div class="kp-s">New + Existing redeemers</div></div>
+    <div class="kp"><div class="kp-l">Redemptions</div><div class="kp-v">10,068</div><div class="kp-s">coupon bills</div></div>
+    <div class="kp"><div class="kp-l">Net payable</div><div class="kp-v">₹5.72 Cr</div><div class="kp-s">spend on redeeming bills</div></div>
+    <div class="kp"><div class="kp-l">ABV</div><div class="kp-v">₹5,679</div><div class="kp-s">average bill value</div></div>
+  </div>
+  <h3>Weekwise redemption</h3>
+  <div class="scroll" style="margin-top:8px"><table class="tbl">
+    <thead><tr><th class="l">Week</th><th class="l">Dates</th><th>Distinct customers</th><th>Bills</th><th>Sales</th><th>ABV</th></tr></thead>
+    <tbody>
+    <tr><td class="tl">Pre-Week</td><td class="mut">05 Jun</td><td>96</td><td>113</td><td>₹4.11 L</td><td>₹3,635</td></tr>
+    <tr class="rw-hi"><td class="tl">Week 1</td><td class="mut">06–12 Jun</td><td>5,407</td><td>5,770</td><td class="strong">₹3.93 Cr</td><td>₹6,817</td></tr>
+    <tr><td class="tl">Week 2</td><td class="mut">13–19 Jun</td><td>1,863</td><td>1,977</td><td>₹1.10 Cr</td><td>₹5,571</td></tr>
+    <tr><td class="tl">Week 3</td><td class="mut">20–26 Jun</td><td>1,343</td><td>1,411</td><td>₹84.54 L</td><td>₹5,991</td></tr>
+    <tr><td class="tl">Week 4</td><td class="mut">27 Jun–03 Jul</td><td>759</td><td>797</td><td>₹48.64 L</td><td>₹6,103</td></tr>
+    <tr class="rw-tot"><td class="tl">Grand Total</td><td></td><td>9,468</td><td>10,068</td><td>₹5.72 Cr</td><td>₹5,679</td></tr>
+    </tbody></table></div>
+  <h3>ADL-wise redemption &middot; existing customers</h3>
+  <div class="scroll"><table class="tbl">
+    <thead><tr><th class="l">Segment</th><th>Share of customers</th><th>Unique customers</th><th>Bills</th><th>Sales</th></tr></thead>
+    <tbody>
+    <tr><td class="tl">Active</td><td class="mut" style="text-align:right">75.6%</td><td>5,083</td><td>6,255</td><td class="strong">₹3.43 Cr</td></tr>
+    <tr><td class="tl">Recent Lapsed</td><td class="mut" style="text-align:right">13.3%</td><td>897</td><td>899</td><td>₹54.30 L</td></tr>
+    <tr><td class="tl">Long Lapsed</td><td class="mut" style="text-align:right">7.6%</td><td>508</td><td>508</td><td>₹29.48 L</td></tr>
+    <tr><td class="tl">Lapsed</td><td class="mut" style="text-align:right">6.0%</td><td>406</td><td>408</td><td>₹26.57 L</td></tr>
+    <tr><td class="tl">Dormant</td><td class="mut" style="text-align:right">3.1%</td><td>209</td><td>209</td><td>₹12.79 L</td></tr>
+    <tr class="rw-tot"><td class="tl">Grand Total</td><td style="text-align:right">100.0%</td><td>6,723</td><td>8,279</td><td>₹4.66 Cr</td></tr>
+    </tbody></table></div>
+  <p class="fn">ADL split covers Existing customers only (6,723 unique); New customers have no ADL history. Reading the full preview window, redemptions reached 5,721 at 0.47% conversion this year versus 0.24% last year — roughly double year-on-year.</p>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><span class="sec-idx">10</span><h2>EXTRA10 &middot; closed-store offer + highly probable base</h2><span class="sec-note">Additional 10% offer to closed-store customers &middot; 11 &ndash; 19 Jul</span></div>
+  <div class="kpis">
+    <div class="kp"><div class="kp-l">Customers</div><div class="kp-v">510</div><div class="kp-s">availed EXTRA10</div></div>
+    <div class="kp"><div class="kp-l">Bills</div><div class="kp-v">527</div><div class="kp-s">redeeming bills</div></div>
+    <div class="kp"><div class="kp-l">Net payable</div><div class="kp-v">₹31.50 L</div><div class="kp-s">total sales</div></div>
+    <div class="kp"><div class="kp-l">ABV</div><div class="kp-v">₹5,978</div><div class="kp-s">average bill value</div></div>
+  </div>
+  <h3>Lifecycle-wise split</h3>
+  <div class="scroll" style="margin-top:8px"><table class="tbl">
+    <thead><tr><th class="l">Segment</th><th>Customers</th><th>Bills</th><th>Net payable</th><th>ABV</th></tr></thead>
+    <tbody>
+    <tr class="rw-hi"><td class="tl">Active</td><td>342</td><td>359</td><td class="strong">₹21.13 L</td><td>₹5,885</td></tr>
+    <tr><td class="tl">Recent Lapsed</td><td>70</td><td>70</td><td>₹4.22 L</td><td>₹6,034</td></tr>
+    <tr><td class="tl">Long Lapsed</td><td>44</td><td>44</td><td>₹3.41 L</td><td>₹7,759</td></tr>
+    <tr><td class="tl">Lapsed</td><td>40</td><td>40</td><td>₹1.97 L</td><td>₹4,921</td></tr>
+    <tr><td class="tl">Dormant</td><td>14</td><td>14</td><td>₹0.77 L</td><td>₹5,495</td></tr>
+    <tr class="rw-tot"><td class="tl">Total</td><td>510</td><td>527</td><td>₹31.50 L</td><td>₹5,978</td></tr>
+    </tbody></table></div>
+  <p class="fn">Covers 11–19 July (unmapped/NULL customers excluded). Uptake accelerated sharply from 17 July. Active accounts for 342 of 510 redemptions; lapsed segments contribute 154 customers and ₹9.61 L.</p>
+</section>
+
+<div class="foot"><span>BIBA &middot; EOSS SS26 Executive Review &middot; Data through 26 July 2026</span><span>Prepared by Hansa Cequity</span></div>
+</div>
+
+<script>
+var D={"all": {"kpi": {"ly_c": 130603, "ly_b": 189107, "ly_s": 691683779.6900008, "ty_c": 135209, "ty_b": 200872, "ty_s": 734560434.4600008, "ty_abv": 3656.85827024175, "ly_abv": 3657.6318152686085, "ty_f": 1.485640748766724, "ly_f": 1.4479529566702143, "bridge": {"cust": 3.5, "freq": 2.6, "abv": -0.0, "rev": 6.2}}, "phases": [{"name": "Pre-Preview", "label": "5\u20137 Jun", "ty": 51827226, "ly": 47832277, "g": 8.4, "abv": 3540, "perday": 1.73, "overlay": false}, {"name": "Preview", "label": "8\u201314 Jun", "ty": 128309395, "ly": 99100288, "g": 29.5, "abv": 3708, "perday": 1.83, "overlay": false}, {"name": "Extra 10%", "label": "5\u201314 Jun", "ty": 180136620, "ly": 146932566, "g": 22.6, "abv": 3658, "perday": 1.8, "overlay": true}, {"name": "Mid-Sale", "label": "15\u201323 Jun", "ty": 115094111, "ly": 106544312, "g": 8.0, "abv": 3688, "perday": 1.28, "overlay": false}, {"name": "SuperSale W1", "label": "24\u201328 Jun", "ty": 71825152, "ly": 68388728, "g": 5.0, "abv": 3776, "perday": 1.44, "overlay": false}, {"name": "Interim", "label": "29\u201330 Jun", "ty": 22135864, "ly": 19170207, "g": 15.5, "abv": 3669, "perday": 1.11, "overlay": false}, {"name": "Flat 50%", "label": "1\u20135 Jul", "ty": 99475376, "ly": 65764996, "g": 51.3, "abv": 3612, "perday": 1.99, "overlay": false}, {"name": "Post Flat-50", "label": "6\u201314 Jul", "ty": 96940381, "ly": 126295969, "g": -23.2, "abv": 3669, "perday": 1.08, "overlay": false}, {"name": "SuperSale W3", "label": "15\u201319 Jul", "ty": 64825200, "ly": 68665736, "g": -5.6, "abv": 3511, "perday": 1.3, "overlay": false}], "weeks": [{"week": "W1", "label": "5 Jun\u201311 Jun", "partial": false, "ty": 112907458, "ly": 97558537, "g": 15.7}, {"week": "W2", "label": "12 Jun\u201318 Jun", "partial": false, "ty": 112089151, "ly": 90729308, "g": 23.5}, {"week": "W3", "label": "19 Jun\u201325 Jun", "partial": false, "ty": 92061036, "ly": 85372788, "g": 7.8}, {"week": "W4", "label": "26 Jun\u20132 Jul", "partial": false, "ty": 106246210, "ly": 86592952, "g": 22.7}, {"week": "W5", "label": "3 Jul\u20139 Jul", "partial": false, "ty": 102919567, "ly": 93030479, "g": 10.6}, {"week": "W6", "label": "10 Jul\u201316 Jul", "partial": false, "ty": 77541755, "ly": 98582124, "g": -21.3}, {"week": "W7", "label": "17 Jul\u201323 Jul", "partial": false, "ty": 85421632, "ly": 88264475, "g": -3.2}, {"week": "W8", "label": "24 Jul\u201326 Jul", "partial": true, "ty": 45373626, "ly": 51553117, "g": -12.0}], "ne": {"rows": [{"seg": "New", "ty": 263099070, "ly": 258245057, "g": 1.9, "share": 35.8, "c": 55050, "b": 75634, "f": 1.37, "abv": 3479}, {"seg": "Existing", "ty": 471461363, "ly": 433438723, "g": 8.8, "share": 64.2, "c": 80159, "b": 125238, "f": 1.56, "abv": 3765}], "segs": [{"seg": "Active", "ty": 313475998, "ly": 299735664, "g": 4.6, "share": 66.5, "c": 53641, "b": 89072, "f": 1.66, "abv": 3519}, {"seg": "Dormant", "ty": 21027793, "ly": 19919952, "g": 5.6, "share": 4.5, "c": 3409, "b": 4686, "f": 1.37, "abv": 4487}, {"seg": "Recent Lapsed", "ty": 54488454, "ly": 45374805, "g": 20.1, "share": 11.6, "c": 9005, "b": 12287, "f": 1.36, "abv": 4435}, {"seg": "Lapsed", "ty": 28419112, "ly": 25889875, "g": 9.8, "share": 6.0, "c": 4711, "b": 6439, "f": 1.37, "abv": 4414}, {"seg": "Long Lapsed", "ty": 54050006, "ly": 42518427, "g": 27.1, "share": 11.5, "c": 9393, "b": 12754, "f": 1.36, "abv": 4238}], "ex_ty": 471461363, "nw_ty": 263099070}, "crm": {"rows": [{"phase": "Pre-Preview", "label": "5\u20137 Jun", "deliv": 1832062, "shop": 3129, "sales": 15465692, "cost": 450082, "roas": 34.4}, {"phase": "Preview", "label": "8\u201314 Jun", "deliv": 8336367, "shop": 14019, "sales": 76497031, "cost": 3502071, "roas": 21.8}, {"phase": "Week 1", "label": "15\u201321 Jun", "deliv": 2287720, "shop": 5323, "sales": 27302863, "cost": 507629, "roas": 53.8}, {"phase": "Week 2", "label": "22\u201328 Jun", "deliv": 1662841, "shop": 2434, "sales": 13424363, "cost": 214552, "roas": 62.6}, {"phase": "Week 3", "label": "29 Jun\u20135 Jul", "deliv": 5425286, "shop": 10786, "sales": 57207205, "cost": 1692018, "roas": 33.8}, {"phase": "Week 4", "label": "6\u201312 Jul", "deliv": 644838, "shop": 415, "sales": 1810674, "cost": 131626, "roas": 13.8}, {"phase": "Week 5", "label": "13\u201319 Jul", "deliv": 1768835, "shop": 1644, "sales": 6262055, "cost": 609260, "roas": 10.3}], "tot": {"sales": 197969883, "cost": 7107237, "cust": 37750, "deliv": 21957949, "roas": 27.85, "campaigns": 314}}, "nephase": [{"phase": "Pre-Preview", "new": 17864911, "ex": 33586194, "new_sh": 34.7, "ex_sh": 65.3, "new_g": -1.5, "ex_g": 15.1}, {"phase": "Preview", "new": 41169451, "ex": 84982407, "new_sh": 32.6, "ex_sh": 67.4, "new_g": 18.0, "ex_g": 35.5}, {"phase": "Mid-Sale", "new": 42135409, "ex": 70478708, "new_sh": 37.4, "ex_sh": 62.6, "new_g": 7.6, "ex_g": 7.8}, {"phase": "SuperSale W1", "new": 27237361, "ex": 42878296, "new_sh": 38.8, "ex_sh": 61.2, "new_g": 2.9, "ex_g": 5.2}, {"phase": "Interim", "new": 8112555, "ex": 13386049, "new_sh": 37.7, "ex_sh": 62.3, "new_g": 7.6, "ex_g": 19.1}, {"phase": "Flat 50%", "new": 34363501, "ex": 62582774, "new_sh": 35.4, "ex_sh": 64.6, "new_g": 36.1, "ex_g": 60.0}, {"phase": "Post Flat-50", "new": 36945148, "ex": 58012399, "new_sh": 38.9, "ex_sh": 61.1, "new_g": -18.6, "ex_g": -25.9}, {"phase": "SuperSale W3", "new": 23174671, "ex": 40158565, "new_sh": 36.6, "ex_sh": 63.4, "new_g": -12.7, "ex_g": -1.1}]}, "offline": {"kpi": {"ly_c": 98985, "ly_s": 589710994.040001, "ly_b": 132011, "ty_c": 100819, "ty_s": 610169354.5600009, "ty_b": 134361, "ty_abv": 4541.268333519406, "ly_abv": 4467.135269333624, "ty_f": 1.3326952260982552, "ly_f": 1.3336465120977925, "bridge": {"cust": 1.9, "freq": -0.1, "abv": 1.7, "rev": 3.5}}, "phases": [{"name": "Pre-Preview", "label": "5\u20137 Jun", "ty": 40526136, "ly": 41540423, "g": -2.4, "abv": 4835, "perday": 1.35, "overlay": false}, {"name": "Preview", "label": "8\u201314 Jun", "ty": 103553224, "ly": 82402808, "g": 25.7, "abv": 4784, "perday": 1.48, "overlay": false}, {"name": "Extra 10%", "label": "5\u201314 Jun", "ty": 144079360, "ly": 123943231, "g": 16.2, "abv": 4798, "perday": 1.44, "overlay": true}, {"name": "Mid-Sale", "label": "15\u201323 Jun", "ty": 96086268, "ly": 90075525, "g": 6.7, "abv": 4527, "perday": 1.07, "overlay": false}, {"name": "SuperSale W1", "label": "24\u201328 Jun", "ty": 61377127, "ly": 59625863, "g": 2.9, "abv": 4506, "perday": 1.23, "overlay": false}, {"name": "Interim", "label": "29\u201330 Jun", "ty": 18252518, "ly": 16024354, "g": 13.9, "abv": 4606, "perday": 0.91, "overlay": false}, {"name": "Flat 50%", "label": "1\u20135 Jul", "ty": 83848356, "ly": 56957258, "g": 47.2, "abv": 4576, "perday": 1.68, "overlay": false}, {"name": "Post Flat-50", "label": "6\u201314 Jul", "ty": 82610693, "ly": 104831268, "g": -21.2, "abv": 4328, "perday": 0.92, "overlay": false}, {"name": "SuperSale W3", "label": "15\u201319 Jul", "ty": 52067511, "ly": 60676556, "g": -14.2, "abv": 4338, "perday": 1.04, "overlay": false}], "weeks": [{"week": "W1", "label": "5 Jun\u201311 Jun", "partial": false, "ty": 89427946, "ly": 82369537, "g": 8.6}, {"week": "W2", "label": "12 Jun\u201318 Jun", "partial": false, "ty": 90971338, "ly": 76334882, "g": 19.2}, {"week": "W3", "label": "19 Jun\u201325 Jun", "partial": false, "ty": 77898216, "ly": 72191488, "g": 7.9}, {"week": "W4", "label": "26 Jun\u20132 Jul", "partial": false, "ty": 88728852, "ly": 75108466, "g": 18.1}, {"week": "W5", "label": "3 Jul\u20139 Jul", "partial": false, "ty": 88143012, "ly": 78937453, "g": 11.7}, {"week": "W6", "label": "10 Jul\u201316 Jul", "partial": false, "ty": 66648458, "ly": 82553966, "g": -19.3}, {"week": "W7", "label": "17 Jul\u201323 Jul", "partial": false, "ty": 68673255, "ly": 77302341, "g": -11.2}, {"week": "W8", "label": "24 Jul\u201326 Jul", "partial": true, "ty": 39678277, "ly": 44912861, "g": -11.7}], "ne": {"rows": [{"seg": "New", "ty": 217919877, "ly": 217485911, "g": 0.2, "share": 35.7, "c": 41582, "b": 50202, "f": 1.21, "abv": 4341}, {"seg": "Existing", "ty": 392249478, "ly": 372225083, "g": 5.4, "share": 64.3, "c": 59238, "b": 84159, "f": 1.42, "abv": 4661}], "segs": [{"seg": "Active", "ty": 251451698, "ly": 251608322, "g": -0.1, "share": 64.1, "c": 36345, "b": 56177, "f": 1.55, "abv": 4476}, {"seg": "Dormant", "ty": 18137318, "ly": 17362017, "g": 4.5, "share": 4.6, "c": 2766, "b": 3385, "f": 1.22, "abv": 5358}, {"seg": "Recent Lapsed", "ty": 48263426, "ly": 41488479, "g": 16.3, "share": 12.3, "c": 7784, "b": 9508, "f": 1.22, "abv": 5076}, {"seg": "Lapsed", "ty": 25744047, "ly": 23355114, "g": 10.2, "share": 6.6, "c": 4201, "b": 5162, "f": 1.23, "abv": 4987}, {"seg": "Long Lapsed", "ty": 48652989, "ly": 38411151, "g": 26.7, "share": 12.4, "c": 8142, "b": 9927, "f": 1.22, "abv": 4901}], "ex_ty": 392249478, "nw_ty": 217919877}, "crm": {"rows": [{"phase": "Pre-Preview", "label": "5\u20137 Jun", "deliv": 620616, "shop": 1505, "sales": 9681130, "cost": 245760, "roas": 39.4}, {"phase": "Preview", "label": "8\u201314 Jun", "deliv": 6719467, "shop": 10873, "sales": 64426293, "cost": 2976025, "roas": 21.6}, {"phase": "Week 1", "label": "15\u201321 Jun", "deliv": 1644844, "shop": 4485, "sales": 24061411, "cost": 385917, "roas": 62.3}, {"phase": "Week 2", "label": "22\u201328 Jun", "deliv": 1512396, "shop": 2291, "sales": 12744004, "cost": 194396, "roas": 65.6}, {"phase": "Week 3", "label": "29 Jun\u20135 Jul", "deliv": 3530279, "shop": 8538, "sales": 48227404, "cost": 1432874, "roas": 33.7}, {"phase": "Week 4", "label": "6\u201312 Jul", "deliv": 341810, "shop": 169, "sales": 823990, "cost": 62911, "roas": 13.1}, {"phase": "Week 5", "label": "13\u201319 Jul", "deliv": 772111, "shop": 306, "sales": 1522876, "cost": 363134, "roas": 4.2}], "tot": {"sales": 161487108, "cost": 5661017, "cust": 28167, "deliv": 15141523, "roas": 28.5, "campaigns": null}}, "nephase": [{"phase": "Pre-Preview", "new": 14223362, "ex": 25926653, "new_sh": 35.4, "ex_sh": 64.6, "new_g": -9.8, "ex_g": 2.6}, {"phase": "Preview", "new": 32473190, "ex": 68922497, "new_sh": 32.0, "ex_sh": 68.0, "new_g": 13.4, "ex_g": 31.9}, {"phase": "Mid-Sale", "new": 35111650, "ex": 58494623, "new_sh": 37.5, "ex_sh": 62.5, "new_g": 7.8, "ex_g": 5.4}, {"phase": "SuperSale W1", "new": 23242618, "ex": 36425014, "new_sh": 39.0, "ex_sh": 61.0, "new_g": 1.3, "ex_g": 2.4}, {"phase": "Interim", "new": 6641342, "ex": 10973915, "new_sh": 37.7, "ex_sh": 62.3, "new_g": 6.3, "ex_g": 16.9}, {"phase": "Flat 50%", "new": 28964455, "ex": 52354800, "new_sh": 35.6, "ex_sh": 64.4, "new_g": 33.8, "ex_g": 54.5}, {"phase": "Post Flat-50", "new": 31453233, "ex": 49174627, "new_sh": 39.0, "ex_sh": 61.0, "new_g": -15.1, "ex_g": -24.5}, {"phase": "SuperSale W3", "new": 18738322, "ex": 31837225, "new_sh": 37.1, "ex_sh": 62.9, "new_g": -19.1, "ex_g": -11.6}]}, "online": {"kpi": {"ly_c": 36300, "ty_c": 38739, "ly_s": 101972785.64999977, "ty_s": 124391079.89999992, "ly_b": 57096, "ty_b": 66511, "ty_abv": 1870.233193005667, "ly_abv": 1785.988259247579, "ty_f": 1.7169002813701955, "ly_f": 1.572892561983471, "bridge": {"cust": 6.7, "freq": 9.2, "abv": 4.7, "rev": 22.0}}, "phases": [{"name": "Pre-Preview", "label": "5\u20137 Jun", "ty": 11301090, "ly": 6291854, "g": 79.6, "abv": 1806, "perday": 0.38, "overlay": false}, {"name": "Preview", "label": "8\u201314 Jun", "ty": 24756171, "ly": 16697480, "g": 48.3, "abv": 1911, "perday": 0.35, "overlay": false}, {"name": "Extra 10%", "label": "5\u201314 Jun", "ty": 36057260, "ly": 22989335, "g": 56.8, "abv": 1877, "perday": 0.36, "overlay": true}, {"name": "Mid-Sale", "label": "15\u201323 Jun", "ty": 19007844, "ly": 16468787, "g": 15.4, "abv": 1904, "perday": 0.21, "overlay": false}, {"name": "SuperSale W1", "label": "24\u201328 Jun", "ty": 10448025, "ly": 8762865, "g": 19.2, "abv": 1934, "perday": 0.21, "overlay": false}, {"name": "Interim", "label": "29\u201330 Jun", "ty": 3883346, "ly": 3145853, "g": 23.4, "abv": 1875, "perday": 0.19, "overlay": false}, {"name": "Flat 50%", "label": "1\u20135 Jul", "ty": 15627020, "ly": 8807738, "g": 77.4, "abv": 1696, "perday": 0.31, "overlay": false}, {"name": "Post Flat-50", "label": "6\u201314 Jul", "ty": 14329689, "ly": 21464701, "g": -33.2, "abv": 1953, "perday": 0.16, "overlay": false}, {"name": "SuperSale W3", "label": "15\u201319 Jul", "ty": 12757690, "ly": 7989180, "g": 59.7, "abv": 1975, "perday": 0.26, "overlay": false}], "weeks": [{"week": "W1", "label": "5 Jun\u201311 Jun", "partial": false, "ty": 23479512, "ly": 15189000, "g": 54.6}, {"week": "W2", "label": "12 Jun\u201318 Jun", "partial": false, "ty": 21117813, "ly": 14394427, "g": 46.7}, {"week": "W3", "label": "19 Jun\u201325 Jun", "partial": false, "ty": 14162820, "ly": 13181300, "g": 7.4}, {"week": "W4", "label": "26 Jun\u20132 Jul", "partial": false, "ty": 17517358, "ly": 11484486, "g": 52.5}, {"week": "W5", "label": "3 Jul\u20139 Jul", "partial": false, "ty": 14776554, "ly": 14093026, "g": 4.9}, {"week": "W6", "label": "10 Jul\u201316 Jul", "partial": false, "ty": 10893297, "ly": 16028158, "g": -32.0}, {"week": "W7", "label": "17 Jul\u201323 Jul", "partial": false, "ty": 16748377, "ly": 10962133, "g": 52.8}, {"week": "W8", "label": "24 Jul\u201326 Jul", "partial": true, "ty": 5695349, "ly": 6640255, "g": -14.2}], "ne": {"rows": [{"seg": "New", "ty": 45179193, "ly": 40759146, "g": 10.8, "share": 36.3, "c": 15318, "b": 25432, "f": 1.66, "abv": 1776}, {"seg": "Existing", "ty": 79211887, "ly": 61213640, "g": 29.4, "share": 63.7, "c": 23421, "b": 41079, "f": 1.75, "abv": 1928}], "segs": [{"seg": "Active", "ty": 62024301, "ly": 48127341, "g": 28.9, "share": 78.3, "c": 18480, "b": 32895, "f": 1.78, "abv": 1886}, {"seg": "Dormant", "ty": 2890476, "ly": 2557934, "g": 13.0, "share": 3.6, "c": 787, "b": 1301, "f": 1.65, "abv": 2222}, {"seg": "Recent Lapsed", "ty": 6225028, "ly": 3886326, "g": 60.2, "share": 7.9, "c": 1669, "b": 2779, "f": 1.67, "abv": 2240}, {"seg": "Lapsed", "ty": 2675065, "ly": 2534761, "g": 5.5, "share": 3.4, "c": 763, "b": 1277, "f": 1.67, "abv": 2095}, {"seg": "Long Lapsed", "ty": 5397017, "ly": 4107276, "g": 31.4, "share": 6.8, "c": 1722, "b": 2827, "f": 1.64, "abv": 1909}], "ex_ty": 79211887, "nw_ty": 45179193}, "crm": {"rows": [{"phase": "Pre-Preview", "label": "5\u20137 Jun", "deliv": 1211446, "shop": 1624, "sales": 5784562, "cost": 204322, "roas": 28.3}, {"phase": "Preview", "label": "8\u201314 Jun", "deliv": 1616900, "shop": 3146, "sales": 12070738, "cost": 526046, "roas": 22.9}, {"phase": "Week 1", "label": "15\u201321 Jun", "deliv": 642876, "shop": 838, "sales": 3241452, "cost": 121712, "roas": 26.6}, {"phase": "Week 2", "label": "22\u201328 Jun", "deliv": 150445, "shop": 143, "sales": 680359, "cost": 20156, "roas": 33.8}, {"phase": "Week 3", "label": "29 Jun\u20135 Jul", "deliv": 1895007, "shop": 2248, "sales": 8979801, "cost": 259144, "roas": 34.7}, {"phase": "Week 4", "label": "6\u201312 Jul", "deliv": 303028, "shop": 246, "sales": 986684, "cost": 68715, "roas": 14.4}, {"phase": "Week 5", "label": "13\u201319 Jul", "deliv": 996724, "shop": 1338, "sales": 4739179, "cost": 246126, "roas": 19.3}], "tot": {"sales": 36482775, "cost": 1446221, "cust": 9583, "deliv": 6816426, "roas": 25.2, "campaigns": null}}, "nephase": [{"phase": "Pre-Preview", "new": 3641549, "ex": 7659541, "new_sh": 32.2, "ex_sh": 67.8, "new_g": 53.3, "ex_g": 95.6}, {"phase": "Preview", "new": 8696261, "ex": 16059910, "new_sh": 35.1, "ex_sh": 64.9, "new_g": 39.1, "ex_g": 53.7}, {"phase": "Mid-Sale", "new": 7023759, "ex": 11984085, "new_sh": 37.0, "ex_sh": 63.0, "new_g": 6.6, "ex_g": 21.3}, {"phase": "SuperSale W1", "new": 3994744, "ex": 6453282, "new_sh": 38.2, "ex_sh": 61.8, "new_g": 12.7, "ex_g": 23.6}, {"phase": "Interim", "new": 1471212, "ex": 2412133, "new_sh": 37.9, "ex_sh": 62.1, "new_g": 13.5, "ex_g": 30.4}, {"phase": "Flat 50%", "new": 5399046, "ex": 10227973, "new_sh": 34.5, "ex_sh": 65.5, "new_g": 50.2, "ex_g": 96.2}, {"phase": "Post Flat-50", "new": 5491916, "ex": 8837773, "new_sh": 38.3, "ex_sh": 61.7, "new_g": -34.3, "ex_g": -32.6}, {"phase": "SuperSale W3", "new": 4436349, "ex": 8321341, "new_sh": 34.8, "ex_sh": 65.2, "new_g": 30.5, "ex_g": 81.3}]}, "_ss": {"rows": [{"store": "BBK", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "South", "type": "NON-MALL", "ly": 0, "ty": 638748, "c25": 0, "c26": 163, "b25": 0, "b26": 185, "g": null, "f26": 1.13, "f25": 0, "city": "Belgaum", "tier": "Tier 2"}, {"store": "CH2", "window": "15\u201319 Jul", "wave": "Wave 3", "region": null, "type": "MALL", "ly": 2702576, "ty": 2968497, "c25": 382, "c26": 331, "b25": 543, "b26": 596, "g": 9.8, "f26": 1.8, "f25": 1.42, "city": null, "tier": null}, {"store": "CH6", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "South", "type": "NON-MALL", "ly": 351641, "ty": 1050830, "c25": 58, "c26": 138, "b25": 66, "b26": 157, "g": 198.8, "f26": 1.14, "f25": 1.14, "city": "Chennai", "tier": "Tier 1"}, {"store": "DVG", "window": "24\u201328 Jun", "wave": "Wave 1", "region": "South", "type": "NON-MALL", "ly": 132788, "ty": 778406, "c25": 29, "c26": 145, "b25": 30, "b26": 163, "g": 486.2, "f26": 1.12, "f25": 1.03, "city": "Davangere", "tier": "Tier 2"}, {"store": "INO", "window": "from 10 Jul", "wave": "Wave 3", "region": null, "type": "MALL", "ly": 1970741, "ty": 2049777, "c25": 323, "c26": 394, "b25": 626, "b26": 604, "g": 4.0, "f26": 1.53, "f25": 1.94, "city": null, "tier": null}, {"store": "KRM", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "South", "type": "NON-MALL", "ly": 125613, "ty": 1865965, "c25": 25, "c26": 280, "b25": 26, "b26": 330, "g": 1385.5, "f26": 1.18, "f25": 1.04, "city": "Karimnagar", "tier": "Tier 3"}, {"store": "LPM", "window": "16\u201319 Jul", "wave": "Wave 3", "region": null, "type": "MALL", "ly": 4913008, "ty": 4686509, "c25": 886, "c26": 759, "b25": 1097, "b26": 920, "g": -4.6, "f26": 1.21, "f25": 1.24, "city": null, "tier": null}, {"store": "LPN", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "Del/NCR", "type": "NON-MALL", "ly": 883983, "ty": 1641984, "c25": 107, "c26": 198, "b25": 117, "b26": 264, "g": 85.7, "f26": 1.33, "f25": 1.09, "city": "Delhi", "tier": "Tier 1"}, {"store": "LTM", "window": "16\u201319 Jul", "wave": "Wave 3", "region": null, "type": "MALL", "ly": 2030702, "ty": 2891326, "c25": 359, "c26": 678, "b25": 531, "b26": 774, "g": 42.4, "f26": 1.14, "f25": 1.48, "city": null, "tier": null}, {"store": "MGA", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "North", "type": "NON-MALL", "ly": 163145, "ty": 599093, "c25": 34, "c26": 100, "b25": 39, "b26": 118, "g": 267.2, "f26": 1.18, "f25": 1.15, "city": "Agra", "tier": "Tier 2"}, {"store": "MKR", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "North", "type": "NON-MALL", "ly": 113696, "ty": 545879, "c25": 25, "c26": 106, "b25": 25, "b26": 126, "g": 380.1, "f26": 1.19, "f25": 1.0, "city": "Moradabad", "tier": "Tier 2"}, {"store": "PDK", "window": "24\u201328 Jun", "wave": "Wave 1", "region": "South", "type": "NON-MALL", "ly": 37649, "ty": 653630, "c25": 12, "c26": 131, "b25": 13, "b26": 149, "g": 1636.1, "f26": 1.14, "f25": 1.08, "city": "Korrapadu Road, AP", "tier": "Tier 3"}, {"store": "RP4", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "East", "type": "NON-MALL", "ly": 159198, "ty": 1398326, "c25": 36, "c26": 180, "b25": 39, "b26": 225, "g": 778.4, "f26": 1.25, "f25": 1.08, "city": "Raipur", "tier": "Tier 2"}, {"store": "SLM", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "South", "type": "NON-MALL", "ly": 146672, "ty": 1156280, "c25": 27, "c26": 153, "b25": 29, "b26": 180, "g": 688.3, "f26": 1.18, "f25": 1.07, "city": "Salem", "tier": "Tier 2"}, {"store": "TIR", "window": "24\u201328 Jun", "wave": "Wave 1", "region": "South", "type": "NON-MALL", "ly": 200685, "ty": 1423949, "c25": 36, "c26": 196, "b25": 39, "b26": 234, "g": 609.5, "f26": 1.19, "f25": 1.08, "city": "Tirupati", "tier": "Tier 2"}, {"store": "VVT", "window": "16\u201319 Jul", "wave": "Wave 3", "region": null, "type": "MALL", "ly": 1504783, "ty": 1869432, "c25": 340, "c26": 385, "b25": 386, "b26": 446, "g": 24.2, "f26": 1.16, "f25": 1.14, "city": null, "tier": null}], "tot": {"ty": 26218631, "ly": 15436880, "c26": 4337, "c25": 2679, "b26": 5471, "b25": 3606}, "all": {"ty": 610169355, "ly": 589710994, "c26": 100819, "c25": 98985, "b26": 134361, "b25": 132011}, "ex": {"ty": 392249478, "ly": 372225083}, "bytype": [{"ty": 11753090, "ly": 2315070, "c26": 1790, "c25": 389, "b26": 2131, "b25": 423, "g": 407.7, "cg": 360.2, "n": 11, "f26": 1.19, "f25": 1.09, "k": "NON-MALL"}, {"ty": 14465541, "ly": 13121810, "c26": 2547, "c25": 2290, "b26": 3340, "b25": 3183, "g": 10.2, "cg": 11.2, "n": 5, "f26": 1.31, "f25": 1.39, "k": "MALL"}], "bywave": [{"ty": 8897105, "ly": 1943948, "c26": 1318, "c25": 312, "b26": 1585, "b25": 341, "g": 357.7, "cg": 322.4, "n": 8, "f26": 1.2, "f25": 1.09, "k": "Wave 2"}, {"ty": 14465541, "ly": 13121810, "c26": 2547, "c25": 2290, "b26": 3340, "b25": 3183, "g": 10.2, "cg": 11.2, "n": 5, "f26": 1.31, "f25": 1.39, "k": "Wave 3"}, {"ty": 2855985, "ly": 371122, "c26": 472, "c25": 77, "b26": 546, "b25": 82, "g": 669.6, "cg": 513.0, "n": 3, "f26": 1.16, "f25": 1.06, "k": "Wave 1"}], "byreg": [{"ty": 7567808, "ly": 995048, "c26": 1206, "c25": 187, "b26": 1398, "b25": 203, "g": 660.5, "cg": 544.9, "n": 7, "f26": 1.16, "f25": 1.09, "k": "South"}, {"ty": 14465541, "ly": 13121810, "c26": 2547, "c25": 2290, "b26": 3340, "b25": 3183, "g": 10.2, "cg": 11.2, "n": 5, "f26": 1.31, "f25": 1.39, "k": "Not mapped"}, {"ty": 1641984, "ly": 883983, "c26": 198, "c25": 107, "b26": 264, "b25": 117, "g": 85.7, "cg": 85.0, "n": 1, "f26": 1.33, "f25": 1.09, "k": "Del/NCR"}, {"ty": 1144972, "ly": 276841, "c26": 206, "c25": 59, "b26": 244, "b25": 64, "g": 313.6, "cg": 249.2, "n": 2, "f26": 1.18, "f25": 1.08, "k": "North"}, {"ty": 1398326, "ly": 159198, "c26": 180, "c25": 36, "b26": 225, "b25": 39, "g": 778.4, "cg": 400.0, "n": 1, "f26": 1.25, "f25": 1.08, "k": "East"}], "bytier": [{"ty": 2692814, "ly": 1235624, "c26": 336, "c25": 165, "b26": 421, "b25": 183, "g": 117.9, "cg": 103.6, "n": 2, "f26": 1.25, "f25": 1.11, "k": "Tier 1"}, {"ty": 6540681, "ly": 916184, "c26": 1043, "c25": 187, "b26": 1231, "b25": 201, "g": 613.9, "cg": 457.8, "n": 7, "f26": 1.18, "f25": 1.07, "k": "Tier 2"}, {"ty": 2519595, "ly": 163262, "c26": 411, "c25": 37, "b26": 479, "b25": 39, "g": 1443.3, "cg": 1010.8, "n": 2, "f26": 1.17, "f25": 1.05, "k": "Tier 3"}, {"ty": 14465541, "ly": 13121810, "c26": 2547, "c25": 2290, "b26": 3340, "b25": 3183, "g": 10.2, "cg": 11.2, "n": 5, "f26": 1.31, "f25": 1.39, "k": "Not mapped"}], "mall": {"tot": {"n": 5, "ty": 14465541, "ly": 13121810, "g": 10.2, "c26": 2547, "c25": 2290, "cg": 11.2}, "rows": [{"store": "LTM", "window": "16\u201319 Jul", "wave": "Wave 3", "region": null, "type": "MALL", "ly": 2030702, "ty": 2891326, "c25": 359, "c26": 678, "b25": 531, "b26": 774, "g": 42.4, "f26": 1.14, "f25": 1.48, "city": null, "tier": null}, {"store": "VVT", "window": "16\u201319 Jul", "wave": "Wave 3", "region": null, "type": "MALL", "ly": 1504783, "ty": 1869432, "c25": 340, "c26": 385, "b25": 386, "b26": 446, "g": 24.2, "f26": 1.16, "f25": 1.14, "city": null, "tier": null}, {"store": "CH2", "window": "15\u201319 Jul", "wave": "Wave 3", "region": null, "type": "MALL", "ly": 2702576, "ty": 2968497, "c25": 382, "c26": 331, "b25": 543, "b26": 596, "g": 9.8, "f26": 1.8, "f25": 1.42, "city": null, "tier": null}, {"store": "INO", "window": "from 10 Jul", "wave": "Wave 3", "region": null, "type": "MALL", "ly": 1970741, "ty": 2049777, "c25": 323, "c26": 394, "b25": 626, "b26": 604, "g": 4.0, "f26": 1.53, "f25": 1.94, "city": null, "tier": null}, {"store": "LPM", "window": "16\u201319 Jul", "wave": "Wave 3", "region": null, "type": "MALL", "ly": 4913008, "ty": 4686509, "c25": 886, "c26": 759, "b25": 1097, "b26": 920, "g": -4.6, "f26": 1.21, "f25": 1.24, "city": null, "tier": null}]}, "nonmall": {"tot": {"n": 11, "ty": 11753090, "ly": 2315070, "g": 407.7, "c26": 1790, "c25": 389, "cg": 360.2}, "rows": [{"store": "BBK", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "South", "type": "NON-MALL", "ly": 0, "ty": 638748, "c25": 0, "c26": 163, "b25": 0, "b26": 185, "g": null, "f26": 1.13, "f25": 0, "city": "Belgaum", "tier": "Tier 2"}, {"store": "KRM", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "South", "type": "NON-MALL", "ly": 125613, "ty": 1865965, "c25": 25, "c26": 280, "b25": 26, "b26": 330, "g": 1385.5, "f26": 1.18, "f25": 1.04, "city": "Karimnagar", "tier": "Tier 3"}, {"store": "TIR", "window": "24\u201328 Jun", "wave": "Wave 1", "region": "South", "type": "NON-MALL", "ly": 200685, "ty": 1423949, "c25": 36, "c26": 196, "b25": 39, "b26": 234, "g": 609.5, "f26": 1.19, "f25": 1.08, "city": "Tirupati", "tier": "Tier 2"}, {"store": "RP4", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "East", "type": "NON-MALL", "ly": 159198, "ty": 1398326, "c25": 36, "c26": 180, "b25": 39, "b26": 225, "g": 778.4, "f26": 1.25, "f25": 1.08, "city": "Raipur", "tier": "Tier 2"}, {"store": "SLM", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "South", "type": "NON-MALL", "ly": 146672, "ty": 1156280, "c25": 27, "c26": 153, "b25": 29, "b26": 180, "g": 688.3, "f26": 1.18, "f25": 1.07, "city": "Salem", "tier": "Tier 2"}, {"store": "MGA", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "North", "type": "NON-MALL", "ly": 163145, "ty": 599093, "c25": 34, "c26": 100, "b25": 39, "b26": 118, "g": 267.2, "f26": 1.18, "f25": 1.15, "city": "Agra", "tier": "Tier 2"}, {"store": "MKR", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "North", "type": "NON-MALL", "ly": 113696, "ty": 545879, "c25": 25, "c26": 106, "b25": 25, "b26": 126, "g": 380.1, "f26": 1.19, "f25": 1.0, "city": "Moradabad", "tier": "Tier 2"}, {"store": "PDK", "window": "24\u201328 Jun", "wave": "Wave 1", "region": "South", "type": "NON-MALL", "ly": 37649, "ty": 653630, "c25": 12, "c26": 131, "b25": 13, "b26": 149, "g": 1636.1, "f26": 1.14, "f25": 1.08, "city": "Korrapadu Road, AP", "tier": "Tier 3"}, {"store": "DVG", "window": "24\u201328 Jun", "wave": "Wave 1", "region": "South", "type": "NON-MALL", "ly": 132788, "ty": 778406, "c25": 29, "c26": 145, "b25": 30, "b26": 163, "g": 486.2, "f26": 1.12, "f25": 1.03, "city": "Davangere", "tier": "Tier 2"}, {"store": "CH6", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "South", "type": "NON-MALL", "ly": 351641, "ty": 1050830, "c25": 58, "c26": 138, "b25": 66, "b26": 157, "g": 198.8, "f26": 1.14, "f25": 1.14, "city": "Chennai", "tier": "Tier 1"}, {"store": "LPN", "window": "30 Jun\u20135 Jul", "wave": "Wave 2", "region": "Del/NCR", "type": "NON-MALL", "ly": 883983, "ty": 1641984, "c25": 107, "c26": 198, "b25": 117, "b26": 264, "g": 85.7, "f26": 1.33, "f25": 1.09, "city": "Delhi", "tier": "Tier 1"}], "tiers": [{"ty": 2692814, "ly": 1235624, "c26": 336, "c25": 165, "b26": 421, "b25": 183, "g": 117.9, "cg": 103.6, "n": 2, "f26": 1.25, "f25": 1.11, "k": "Tier 1"}, {"ty": 6540681, "ly": 916184, "c26": 1043, "c25": 187, "b26": 1231, "b25": 201, "g": 613.9, "cg": 457.8, "n": 7, "f26": 1.18, "f25": 1.07, "k": "Tier 2"}, {"ty": 2519595, "ly": 163262, "c26": 411, "c25": 37, "b26": 479, "b25": 39, "g": 1443.3, "cg": 1010.8, "n": 2, "f26": 1.17, "f25": 1.05, "k": "Tier 3"}]}, "windows": [{"win": "24\u201328 Jun", "days": 5, "n": 3, "stores": "PDK, TIR, DVG", "ty": 2855985, "ly": 371122, "g": 669.6, "c26": 472, "c25": 77, "cg": 513.0, "est_ty": 61377127, "est_ly": 59625863, "est_g": 2.9}, {"win": "30 Jun \u2013 5 Jul", "days": 6, "n": 8, "stores": "LPN, RP4, MGA, MKR, CH6, BBK, SLM, KRM", "ty": 8897105, "ly": 1943948, "g": 357.7, "c26": 1318, "c25": 312, "cg": 322.4, "est_ty": 94139960, "est_ly": 64868657, "est_g": 45.1}, {"win": "10 \u2013 19 Jul", "days": 10, "n": 1, "stores": "INO", "ty": 2049777, "ly": 1970741, "g": 4.0, "c26": 394, "c25": 323, "cg": 22.0, "est_ty": 103152467, "est_ly": 127192230, "est_g": -18.9}, {"win": "15 \u2013 19 Jul", "days": 5, "n": 1, "stores": "CH2", "ty": 2968497, "ly": 2702576, "g": 9.8, "c26": 331, "c25": 382, "cg": -13.4, "est_ty": 52067511, "est_ly": 60676556, "est_g": -14.2}, {"win": "16 \u2013 19 Jul", "days": 4, "n": 3, "stores": "LPM, LTM, VVT", "ty": 9447267, "ly": 8448493, "g": 11.8, "c26": 1822, "c25": 1585, "cg": 15.0, "est_ty": 44337863, "est_ly": 52323512, "est_g": -15.3}]}, "_mig": {"c": 5228, "s": 24621659.63}, "_ex10": {"c": 510, "n": 3150337}, "_chan": {"off_s": 610169355, "on_s": 124391080, "off_ly": 589710994, "on_ly": 101972786, "all_s": 734560434, "all_ly": 691683780}, "_mig2": {"base_c": 596641, "base_n": 255603, "mv_c": 4258, "mv_n": 970, "s_c": 20241717.33, "s_n": 4379942.3, "rate_c": 0.71, "rate_n": 0.38, "spc": 4754, "spn": 4515, "tot": 5228, "tots": 24621659.63, "lift": 1.9, "spend_lift": 1.05}, "_crmwk": {"rows": [{"w": "W1", "label": "5 Jun\u201311 Jun", "deliv": 5335002, "cust": 7208, "conv": 0.135, "cbase": 918359, "ccust": 693, "cconv": 0.075, "lift": 1.79, "inc": 3182, "increv": 15120864, "rate": 79.0, "lift_disp": 1.79}, {"w": "W2", "label": "12 Jun\u201318 Jun", "deliv": 2783988, "cust": 7073, "conv": 0.254, "cbase": 272437, "ccust": 550, "cconv": 0.202, "lift": 1.26, "inc": 1453, "increv": 6904656, "rate": 26.0, "lift_disp": 1.26}, {"w": "W3", "label": "19 Jun\u201325 Jun", "deliv": 1477955, "cust": 3026, "conv": 0.205, "cbase": 138136, "ccust": 239, "cconv": 0.173, "lift": 1.18, "inc": 469, "increv": 2228688, "rate": 18.0, "lift_disp": 1.18}, {"w": "W4", "label": "26 Jun\u20132 Jul", "deliv": 3557533, "cust": 7260, "conv": 0.204, "cbase": 307273, "ccust": 449, "cconv": 0.146, "lift": 1.4, "inc": 2062, "increv": 9798624, "rate": 40.0, "lift_disp": 1.4}, {"w": "W5", "label": "3 Jul\u20139 Jul", "deliv": 900556, "cust": 3167, "conv": 0.352, "cbase": 60905, "ccust": 196, "cconv": 0.322, "lift": 1.09, "inc": 269, "increv": 1278288, "rate": 9.0, "lift_disp": 1.09}, {"w": "W6", "label": "10 Jul\u201316 Jul", "deliv": 1066173, "cust": 410, "conv": 0.038, "cbase": 21461, "ccust": 10, "cconv": 0.047, "lift": 0.83, "inc": 0, "increv": 0, "rate": 0.0, "lift_disp": 1.0}], "tot": {"deliv": 15121207, "cust": 28144, "cbase": 1718571, "ccust": 2137, "inc": 7435, "increv": 35331120, "conv": 0.197, "cconv": 0.125, "lift": 1.57, "abv": 4752, "posweeks": 5}}, "_proj": {"all": {"total": 59, "done": 52, "left": 7, "ach": 734560434, "rate": 14126162, "pace": 833443570, "need90": 82805535, "need100": 92686732, "ly": 691683780}, "offline": {"total": 59, "done": 52, "left": 7, "ach": 610169355, "rate": 11734026, "pace": 692307537, "need90": 72897362, "need100": 81321805, "ly": 589710994}, "online": {"total": 59, "done": 52, "left": 7, "ach": 124391080, "rate": 2392136, "pace": 141136033, "need90": 9908173, "need100": 11364927, "ly": 101972786}}, "_journeys": {"off": {"rows": [{"name": "Mix N Match", "type": "Non-lookbook", "ch": "WA + SMS", "vouch": 135942, "deliv": 74906, "shop": 1912, "conv": 2.55, "red": 2277, "sales": 11075392}, {"name": "SKD", "type": "Non-lookbook", "ch": "WA + SMS", "vouch": 91468, "deliv": 43749, "shop": 1608, "conv": 3.68, "red": 1923, "sales": 10729144}, {"name": "Dormant", "type": "Non-lookbook", "ch": "SMS", "vouch": 133588, "deliv": 87734, "shop": 1178, "conv": 1.34, "red": 1369, "sales": 7167431}, {"name": "Lapsers", "type": "Non-lookbook", "ch": "WA + SMS", "vouch": 208510, "deliv": 106078, "shop": 946, "conv": 0.89, "red": 1060, "sales": 5059254}, {"name": "FAB", "type": "Non-lookbook", "ch": "WA + SMS", "vouch": 15077, "deliv": 8936, "shop": 381, "conv": 4.26, "red": 537, "sales": 2613778}, {"name": "Kids", "type": "Non-lookbook", "ch": "WA + SMS", "vouch": 23591, "deliv": 12675, "shop": 359, "conv": 2.83, "red": 466, "sales": 2398588}, {"name": "Fusion", "type": "Non-lookbook", "ch": "WA + SMS", "vouch": 4253, "deliv": 2546, "shop": 84, "conv": 3.3, "red": 110, "sales": 527054}, {"name": "BIBA General", "type": "Non-lookbook", "ch": "SMS", "vouch": 7617, "deliv": 5268, "shop": 89, "conv": 1.69, "red": 112, "sales": 489911}, {"name": "Transactional", "type": "Lookbook", "ch": "SMS", "vouch": null, "deliv": 71846, "shop": 374, "conv": 0.52, "red": null, "sales": 1786000}], "tot": {"vouch": 620046, "deliv": 413738, "shop": 6931, "red": 7854, "sales": 41846552, "delp": 55.1, "conv": 1.68, "redp": 1.27, "abv": 5101}, "vouch_tot": 620046, "red_tot": 7854, "nlb_sales": 40060552, "lb_sales": 1786000}, "on": {"rows": [{"name": "Abandon Checkout", "deliv": 52386, "opens": 8548, "openp": 16.3, "cust": 2244, "conv": 4.28, "sales": 7694922}, {"name": "Welcome Journey", "deliv": 40840, "opens": 12331, "openp": 30.2, "cust": 1512, "conv": 3.7, "sales": 4899610}, {"name": "Abandoned Cart", "deliv": 33125, "opens": 14378, "openp": 43.4, "cust": 722, "conv": 2.18, "sales": 3546112}, {"name": "Abandoned Browse", "deliv": 73748, "opens": 17876, "openp": 24.2, "cust": 514, "conv": 0.7, "sales": 1691290}, {"name": "Dormant Journey", "deliv": 16622, "opens": 814, "openp": 4.9, "cust": 250, "conv": 1.5, "sales": 1399674}, {"name": "Cross Sell Journey", "deliv": 29147, "opens": 8422, "openp": 28.9, "cust": 339, "conv": 1.16, "sales": 1113669}, {"name": "Post Purchase Journey", "deliv": 68984, "opens": 16496, "openp": 23.9, "cust": 69, "conv": 0.1, "sales": 320427}], "tot": {"deliv": 314852, "opens": 78865, "cust": 5650, "sales": 20665704, "per100": 7.2, "openp": 25.0, "conv": 1.79}}}};
+var mode='all';
+function ig(n){n=Math.round(n);var s=String(Math.abs(n)),r;
+ if(s.length<=3){r=s}else{var h=s.slice(-3),rest=s.slice(0,-3),p=[];
+  while(rest.length>2){p.unshift(rest.slice(-2));rest=rest.slice(0,-2)}
+  if(rest)p.unshift(rest);r=p.join(',')+','+h}
+ return (n<0?'-':'')+r}
+var RS='\u20B9';
+function cr(v){return RS+(v/1e7).toFixed(2)+' Cr'}
+function lk(v){return RS+(v/1e5).toFixed(2)+' L'}
+function money(v){return Math.abs(v)>=1e7?cr(v):lk(v)}
+function pc(t,l){var p=(t/l-1)*100;return (p>=0?'+':'')+p.toFixed(1)+'%'}
+function cls(v){return v>=0?'up':'dn'}
+function sgn(v,d){d=(d===undefined)?1:d;return (v>=0?'+':'')+v.toFixed(d)+'%'}
+var MODEL={all:'Overall',offline:'Offline',online:'Online'};
+
+function render(){
+ var d=D[mode],k=d.kpi,B=k.bridge;
+ document.getElementById('dek').innerHTML='Revenue of <b>'+cr(k.ty_s)+'</b> against <b>'+cr(k.ly_s)+
+  '</b> last year, growth of '+pc(k.ty_s,k.ly_s)+'. More customers shopping more often carried the season. Prepared with 52 of 59 sale days complete.';
+ document.getElementById('fnote').textContent='Showing '+MODEL[mode].toLowerCase()+' figures across every section';
+
+ var P=[['Revenue',cr(k.ty_s),pc(k.ty_s,k.ly_s),cr(k.ly_s),0],
+        ['Customers',ig(k.ty_c),pc(k.ty_c,k.ly_c),ig(k.ly_c),1],
+        ['Bills',ig(k.ty_b),pc(k.ty_b,k.ly_b),ig(k.ly_b),0],
+        ['Frequency',k.ty_f.toFixed(2),pc(k.ty_f,k.ly_f),k.ly_f.toFixed(2),1],
+        ['Avg Bill Value',RS+ig(k.ty_abv),pc(k.ty_abv,k.ly_abv),RS+ig(k.ly_abv),0]];
+ document.getElementById('placs').innerHTML=P.map(function(p){var v=parseFloat(p[2]);
+  return '<div class="plac'+(p[4]?' key':'')+'"><div class="plac-lab">'+p[0]+'</div><div class="plac-val">'+p[1]+
+   '</div><div class="plac-foot"><span class="delta '+cls(v)+'">'+p[2]+'</span><span class="plac-ly">vs '+p[3]+' LY</span></div></div>'}).join('');
+
+ document.getElementById('bridge').innerHTML=
+  '<div class="br"><div class="br-l">Customers</div><div class="br-v '+cls(B.cust)+'">'+sgn(B.cust)+'</div><div class="br-s">'+ig(k.ty_c)+' shoppers</div></div>'+
+  '<div class="br-op">&times;</div>'+
+  '<div class="br"><div class="br-l">Frequency</div><div class="br-v '+cls(B.freq)+'">'+sgn(B.freq)+'</div><div class="br-s">'+k.ty_f.toFixed(2)+' bills per customer</div></div>'+
+  '<div class="br-op">&times;</div>'+
+  '<div class="br"><div class="br-l">Avg Bill Value</div><div class="br-v '+cls(B.abv)+'">'+sgn(B.abv)+'</div><div class="br-s">'+RS+ig(k.ty_abv)+' per bill</div></div>'+
+  '<div class="br-op">=</div>'+
+  '<div class="br eq"><div class="br-l">Revenue</div><div class="br-v">'+sgn(B.rev)+'</div><div class="br-s">'+cr(k.ty_s)+'</div></div>';
+
+ var drivers=[['customers',B.cust],['frequency',B.freq],['basket value',B.abv]].filter(function(x){return x[1]>0})
+   .sort(function(a,b){return b[1]-a[1]});
+ var parts=drivers.map(function(x){return '<b>'+x[0]+' '+sgn(x[1])+'</b>'});
+ var dtxt=parts.length>1?parts.slice(0,-1).join(', ')+' and '+parts[parts.length-1]:parts[0];
+ var lead=drivers.slice(0,2).map(function(x){return x[0]}).join(' and ');
+ lead=lead.charAt(0).toUpperCase()+lead.slice(1);
+ var tail=(B.cust>0&&B.freq>0)?'More people shopped with us, and they came back more often \u2014 the two levers we influence most directly through targeting and offers, and both moved in our favour.'
+   :(B.cust>0?'More people shopped with us and spent more per visit, with the customer base itself the biggest single contributor.'
+             :'Each visit is working harder, with basket value carrying the season.');
+ document.getElementById('bridgeNote').innerHTML='<b>'+lead+' powered this season.</b> Revenue growth of '+sgn(B.rev)+
+  ' breaks down cleanly into '+dtxt+'. '+tail;
+
+ var PJ=D._proj[mode];
+ var gap90=90e7-PJ.ach, onTrack=PJ.pace>=90e7;
+ var bestPace=Math.max.apply(null,d.phases.map(function(p){return p.perday}));
+ document.getElementById('projBox').innerHTML=
+  '<div class="ct hero"><div class="ct-l">Achieved so far</div><div class="ct-v">'+cr(PJ.ach)+'</div><div class="ct-s">'+
+  PJ.done+' of '+PJ.total+' days \u00b7 '+cr(PJ.ach-PJ.ly)+' ahead of last year</div></div>'+
+  '<div class="ct"><div class="ct-l">On current pace</div><div class="ct-v">'+cr(PJ.pace)+'</div><div class="ct-s">at '+
+  cr(PJ.rate)+' a day across the remaining '+PJ.left+' days</div></div>'+
+  (mode==='all'
+   ?'<div class="ct"><div class="ct-l">To reach '+RS+'90 Cr</div><div class="ct-v">'+cr(gap90)+'</div><div class="ct-s">still to add \u00b7 around '+RS+'2.5 Cr a day</div></div>'
+   :'<div class="ct"><div class="ct-l">Ahead of last year</div><div class="ct-v">'+pc(PJ.ach,PJ.ly)+'</div><div class="ct-s">'+cr(PJ.ach-PJ.ly)+' more than the same point in SS25</div></div>');
+ var feas=(mode==='all')?(2.5<=bestPace?' That is within what we have already proven this season \u2014 the Flat 50% window ran at '+RS+bestPace.toFixed(2)+' Cr a day.':' That sits just above our strongest week so far ('+RS+bestPace.toFixed(2)+' Cr a day during Flat 50%), so the closing push will need to be our best yet.'):'';
+ document.getElementById('projNote').innerHTML='<b>'+cr(PJ.ach)+' delivered with '+PJ.left+' days still to run.</b> We are '+
+  cr(PJ.ach-PJ.ly)+' ahead of the same point last year. Holding the current pace lands us at '+cr(PJ.pace)+
+  (mode==='all'?', and reaching the '+RS+'90 Cr mark needs about '+cr(gap90)+' more from here \u2014 around '+RS+'2.5 Cr a day.'+feas
+   :', a healthy step up on last season at this stage. The '+RS+'90\u2013100 Cr ambition is set at total sale level \u2014 see the Overall view for progress against it.');
+
+ var ne=d.ne,nw=ne.rows[0],ex=ne.rows[1];
+ document.getElementById('neDuo').innerHTML=
+  '<div class="chan"><div class="chan-t">Existing customers</div><div class="chan-v">'+cr(ex.ty)+'</div><div class="chan-m"><span class="delta '+
+  cls(ex.g)+'">'+sgn(ex.g)+'</span> &nbsp;vs '+cr(ex.ly)+' last year</div><div class="bar-mix"><i style="background:var(--crim);width:'+
+  ex.share.toFixed(1)+'%"></i><i style="background:#EFE3DC;width:'+(100-ex.share).toFixed(1)+'%"></i></div><div class="chan-m" style="margin-top:8px">'+
+  ex.share.toFixed(1)+'% of revenue \u00b7 our returning base is growing faster than the sale overall</div></div>'+
+  '<div class="chan"><div class="chan-t">New customers</div><div class="chan-v">'+cr(nw.ty)+'</div><div class="chan-m"><span class="delta '+
+  cls(nw.g)+'">'+sgn(nw.g)+'</span> &nbsp;vs '+cr(nw.ly)+' last year</div><div class="bar-mix"><i style="background:var(--gold);width:'+
+  nw.share.toFixed(1)+'%"></i><i style="background:#EFE3DC;width:'+(100-nw.share).toFixed(1)+'%"></i></div><div class="chan-m" style="margin-top:8px">'+
+  nw.share.toFixed(1)+'% of revenue \u00b7 a steady stream of first-time shoppers</div></div>';
+ document.getElementById('neTbl').innerHTML=ne.rows.map(function(r){
+  var fr=(r.f==null)?'\u2014':r.f.toFixed(2);
+  return '<tr><td class="tl">'+r.seg+'</td><td class="strong">'+cr(r.ty)+'</td><td class="'+cls(r.g)+'">'+sgn(r.g)+
+   '</td><td>'+ig(r.c)+'</td><td>'+ig(r.b)+'</td><td>'+fr+'</td><td>'+RS+ig(r.abv)+'</td><td class="mut" style="text-align:right">'+r.share.toFixed(1)+'%</td></tr>'}).join('');
+
+ var np=d.nephase;
+ document.getElementById('neShare').innerHTML=np.map(function(p){
+  return '<div class="share-row"><div class="share-lab">'+p.phase+'</div><div class="share-bar">'+
+   '<i class="ex" style="width:'+p.ex_sh+'%"><span class="share-v">'+p.ex_sh.toFixed(0)+'%</span></i>'+
+   '<i class="nw" style="width:'+p.new_sh+'%"><span class="share-v">'+p.new_sh.toFixed(0)+'%</span></i></div>'+
+   '<div class="share-num">'+cr(p.ex+p.new)+'</div></div>'}).join('');
+ document.getElementById('nePhaseTbl').innerHTML=np.map(function(p){
+  var hi=(p.phase==='Flat 50%'||p.phase==='Preview')?' class="rw-hi"':'';
+  return '<tr'+hi+'><td class="tl">'+p.phase+'</td><td>'+cr(p.new)+'</td><td class="'+cls(p.new_g)+'">'+sgn(p.new_g)+
+   '</td><td class="strong">'+cr(p.ex)+'</td><td class="'+cls(p.ex_g)+'">'+sgn(p.ex_g)+'</td><td class="mut" style="text-align:right">'+
+   p.ex_sh.toFixed(1)+'%</td></tr>'}).join('');
+ var f50=np.filter(function(p){return p.phase==='Flat 50%'})[0];
+ var prev=np.filter(function(p){return p.phase==='Preview'})[0];
+ document.getElementById('nePhaseNote').innerHTML='<b>The deep-offer moments belong to our existing base.</b> During <b>Flat 50%</b> existing customers delivered '+
+  cr(f50.ex)+' at '+sgn(f50.ex_g)+', well ahead of new customers at '+sgn(f50.new_g)+'. <b>Preview</b> told the same story \u2014 existing at '+
+  sgn(prev.ex_g)+' against new at '+sgn(prev.new_g)+'. When we open a strong offer, it is the customers we already hold who respond first and hardest, which is exactly what our targeting is built to do.';
+
+ document.getElementById('segTbl').innerHTML=ne.segs.map(function(r){
+  var hi=(r.seg!=='Active')?' class="rw-hi"':'';
+  var fr=(r.f==null)?'\u2014':r.f.toFixed(2);
+  return '<tr'+hi+'><td class="tl">'+r.seg+'</td><td class="strong">'+cr(r.ty)+'</td><td class="'+cls(r.g)+'">'+sgn(r.g)+
+   '</td><td>'+ig(r.c)+'</td><td>'+ig(r.b)+'</td><td>'+fr+'</td><td>'+RS+ig(r.abv)+'</td><td class="mut" style="text-align:right">'+r.share.toFixed(1)+'%</td></tr>'}).join('');
+ var act=ne.segs[0],oth=ne.segs.slice(1);
+ var othTy=oth.reduce(function(a,b){return a+b.ty},0),othLy=oth.reduce(function(a,b){return a+b.ly},0);
+ var othG=(othTy/othLy-1)*100;
+ var best=oth.reduce(function(a,b){return (b.g||0)>(a.g||0)?b:a});
+ var stable=Math.abs(act.g)<3;
+ var actTxt=stable?'<b>Active held firm while every other cohort stepped up.</b> Active customers stayed stable at '+cr(act.ty)+' ('+sgn(act.g)+
+   '), holding '+act.share.toFixed(1)+'% of existing revenue as our dependable core.'
+  :'<b>Active grew while every other cohort stepped up alongside it.</b> Active customers delivered '+cr(act.ty)+' ('+sgn(act.g)+
+   '), holding '+act.share.toFixed(1)+'% of existing revenue as our core.';
+ var edge=othG>act.g?' Their growth outpaced Active, so the gains are genuinely incremental rather than a shift within the base.':'';
+ document.getElementById('neNote').innerHTML=actTxt+' Alongside that, we targeted the non-Active cohorts consistently through the season and their participation rose sharply \u2014 together they grew '+
+  sgn(othG)+' to '+cr(othTy)+', led by '+best.seg+' at '+sgn(best.g)+'.'+edge;
+
+ (function(){
+  var xs=document.getElementById('xShop');
+  if(mode!=='online'){xs.innerHTML='';return;}
+  var XSHOP={rows:[{w:'W1',label:'5\u201311 Jun',cust:1156,ord:1642,rev:4950568},{w:'W2',label:'12\u201318 Jun',cust:1175,ord:1657,rev:4674367},{w:'W3',label:'19\u201325 Jun',cust:668,ord:938,rev:3016561},{w:'W4',label:'26 Jun\u20132 Jul',cust:1109,ord:1358,rev:3933446},{w:'W5',label:'3\u20139 Jul',cust:836,ord:1087,rev:3833881},{w:'W6',label:'10\u201316 Jul',cust:558,ord:653,rev:1947174},{w:'W7',label:'17\u201323 Jul',cust:751,ord:891,rev:2592411},{w:'W8',label:'24\u201326 Jul',cust:366,ord:437,rev:1163216}],sum:{cust:6619,ord:8663,rev:26111624},distinct:3319,revtot:26111621};
+  var onRev=d.kpi.ty_s, xrev=XSHOP.revtot;
+  var rws=XSHOP.rows.map(function(r){return '<tr><td class="tl">'+r.w+'</td><td class="mut">'+r.label+'</td><td>'+ig(r.cust)+'</td><td>'+ig(r.ord)+'</td><td class="strong">'+lk(r.rev)+'</td></tr>'}).join('');
+  xs.innerHTML='<h3>Offline\u2192Online cross-shoppers</h3>'+
+   '<div class="duo">'+
+   '<div class="chan"><div class="chan-t">Cross-shoppers</div><div class="chan-v">'+ig(XSHOP.distinct)+'</div><div class="chan-m">distinct offline customers who also shopped online this season</div></div>'+
+   '<div class="chan"><div class="chan-t">Cross-shopper revenue</div><div class="chan-v">'+cr(xrev)+'</div><div class="chan-m">'+(xrev/onRev*100).toFixed(1)+'% of online revenue</div></div>'+
+   '</div>'+
+   '<div class="scroll" style="margin-top:16px"><table class="tbl"><thead><tr><th class="l">Week</th><th class="l">Dates</th><th>Customers</th><th>Orders</th><th>Revenue</th></tr></thead><tbody>'+
+   rws+'<tr class="rw-tot"><td class="tl">Sum of weeks</td><td></td><td>'+ig(XSHOP.sum.cust)+'</td><td>'+ig(XSHOP.sum.ord)+'</td><td>'+cr(XSHOP.sum.rev)+'</td></tr>'+
+   '</tbody></table></div>'+
+   '<p class="fn">Distinct cross-shoppers over the full period: <b>'+ig(XSHOP.distinct)+'</b>, generating '+cr(XSHOP.revtot)+'. A customer active in several weeks is counted in each week, so the weekly rows sum higher than the distinct total. These customers and their revenue are already included in the online figures above.</p>';
+ })();
+
+ var ph=d.phases.filter(function(p){return !p.overlay});
+ var mx=Math.max.apply(null,ph.map(function(p){return Math.max(p.ty,p.ly)}));
+ document.getElementById('arc').innerHTML=ph.map(function(p){
+  return '<div class="arc-col"><div class="arc-plot">'+
+   '<div class="arc-bar ly" style="height:'+(p.ly/mx*100).toFixed(1)+'%"><span class="arc-tip">LY '+cr(p.ly)+'</span></div>'+
+   '<div class="arc-bar ty" style="height:'+(p.ty/mx*100).toFixed(1)+'%"><span class="arc-tip">TY '+cr(p.ty)+'</span></div></div>'+
+   '<div class="arc-delta '+cls(p.g)+'">'+sgn(p.g,0)+'</div><div class="arc-name">'+p.name+'</div><div class="arc-date">'+p.label+'</div></div>'}).join('');
+ document.getElementById('phaseTbl').innerHTML=d.phases.map(function(p){
+  var c=p.overlay?' class="rw-ov"':(p.name==='Flat 50%'?' class="rw-hi"':'');
+  return '<tr'+c+'><td class="tl">'+p.name+(p.overlay?' <span class="ovtag">overlay</span>':'')+'</td><td class="mut">'+p.label+
+   '</td><td>'+cr(p.ly)+'</td><td class="strong">'+cr(p.ty)+'</td><td class="'+cls(p.g)+'">'+sgn(p.g)+'</td><td>'+RS+ig(p.abv)+
+   '</td><td class="mut">'+RS+p.perday.toFixed(2)+' Cr</td></tr>'}).join('');
+ var f50p=d.phases.filter(function(p){return p.name==='Flat 50%'})[0];
+ var best2=ph.reduce(function(a,b){return b.g>a.g?b:a});
+ document.getElementById('phaseNote').innerHTML='<b>Flat 50% was the standout moment of the sale.</b> The window delivered '+cr(f50p.ty)+' at '+
+  sgn(f50p.g)+', running at '+RS+f50p.perday.toFixed(2)+' Cr a day \u2014 comfortably the strongest rate of the season'+
+  (best2.name!=='Flat 50%'?', with '+best2.name+' also ahead at '+sgn(best2.g):'')+
+  '. It shows how much demand we can concentrate when a clear offer is put in front of the right base.';
+
+ var wmx=Math.max.apply(null,d.weeks.map(function(w){return Math.max(w.ty,w.ly)}));
+ document.getElementById('wk').innerHTML=d.weeks.map(function(w){
+  return '<div class="wk-col"><div class="wk-plot"><div class="wk-bar ly" style="height:'+(w.ly/wmx*100).toFixed(1)+'%"></div>'+
+   '<div class="wk-bar ty" style="height:'+(w.ty/wmx*100).toFixed(1)+'%"></div></div><div class="wk-d '+cls(w.g)+'">'+sgn(w.g,0)+
+   '</div><div class="wk-n">'+w.week+'</div></div>'}).join('');
+ document.getElementById('wkTbl').innerHTML=d.weeks.map(function(w){
+  return '<tr><td class="tl">'+w.week+'</td><td class="mut">'+w.label+(w.partial?' <span class="part">partial</span>':'')+
+   '</td><td>'+cr(w.ly)+'</td><td class="strong">'+cr(w.ty)+'</td><td class="'+cls(w.g)+'">'+sgn(w.g)+'</td></tr>'}).join('');
+
+ var cb=document.getElementById('chanBlock'),C=D._chan;
+ if(mode==='all'){cb.classList.remove('hide');
+  var onSh=C.on_s/C.all_s*100,onShLy=C.on_ly/C.all_ly*100;
+  document.getElementById('chanDuo').innerHTML=
+   '<div class="chan"><div class="chan-t">Offline</div><div class="chan-v">'+cr(C.off_s)+'</div><div class="chan-m"><span class="delta up">'+
+   pc(C.off_s,C.off_ly)+'</span> &nbsp;vs '+cr(C.off_ly)+' last year</div><div class="bar-mix"><i style="background:var(--crim);width:'+
+   (100-onSh).toFixed(1)+'%"></i><i style="background:var(--gold);width:'+onSh.toFixed(1)+'%"></i></div><div class="chan-m" style="margin-top:8px">'+
+   (100-onSh).toFixed(1)+'% of total revenue</div></div>'+
+   '<div class="chan"><div class="chan-t">Online</div><div class="chan-v">'+cr(C.on_s)+'</div><div class="chan-m"><span class="delta up">'+
+   pc(C.on_s,C.on_ly)+'</span> &nbsp;vs '+cr(C.on_ly)+' last year</div><div class="bar-mix"><i style="background:var(--gold);width:'+
+   onSh.toFixed(1)+'%"></i><i style="background:#EFE3DC;width:'+(100-onSh).toFixed(1)+'%"></i></div><div class="chan-m" style="margin-top:8px">'+
+   onSh.toFixed(1)+'% of total revenue, up from '+onShLy.toFixed(1)+'% last year</div></div>';
+ }else{cb.classList.add('hide')}
+
+ var S=D._ss,ssb=document.getElementById('ssBody');
+ if(mode==='online'){
+  document.getElementById('ssNote').textContent='Store-level activity';
+  ssb.innerHTML='<div class="na"><b>SuperSale is a store-level activity.</b><br>Switch to the Overall or Offline view to see its performance and impact.</div>';
+ }else{
+  document.getElementById('ssNote').textContent=S.rows.length+' stores \u00b7 mall and non-mall';
+  var ssg=(S.tot.ty/S.tot.ly-1)*100,exg=(S.ex.ty/S.ex.ly-1)*100;
+  var contrib=S.tot.ty/S.all.ty*100,gshare=(S.tot.ty-S.tot.ly)/(S.all.ty-S.all.ly)*100,cg=(S.tot.c26/S.tot.c25-1)*100;
+  var f26=S.tot.b26/S.tot.c26,f25=S.tot.b25/S.tot.c25;
+  var M=S.mall,NM=S.nonmall;
+  function band(lab,t,extra){
+   return '<div class="contrast" style="margin-top:8px">'+
+    '<div class="ct hero"><div class="ct-l">'+lab+'</div><div class="ct-v">'+sgn(t.g)+'</div><div class="ct-s">'+
+    money(t.ty)+' against '+money(t.ly)+' last year</div></div>'+
+    '<div class="ct"><div class="ct-l">Stores</div><div class="ct-v">'+t.n+'</div><div class="ct-s">'+extra+'</div></div>'+
+    '<div class="ct"><div class="ct-l">Customers</div><div class="ct-v">'+ig(t.c26)+'</div><div class="ct-s">'+
+    sgn(t.cg)+' against '+ig(t.c25)+' last year</div></div></div>'}
+  function stbl(rows,showTier){
+   return '<div class="scroll" style="margin-top:16px"><table class="tbl"><thead><tr><th class="l">Store</th>'+
+    (showTier?'<th class="l">City</th><th class="l">Tier</th>':'')+
+    '<th>SS25</th><th>SS26</th><th>YoY</th><th>Customers</th><th>Frequency</th></tr></thead><tbody>'+
+    rows.map(function(r){
+     var g=r.g===null?'<span class="new">New store</span>':'<span class="'+cls(r.g)+'">'+sgn(r.g,0)+'</span>';
+     return '<tr><td class="tl">'+r.store+'</td>'+(showTier?'<td class="mut">'+(r.city||'\u2014')+'</td><td class="mut">'+(r.tier||'\u2014')+'</td>':'')+
+      '<td>'+lk(r.ly)+'</td><td class="strong">'+lk(r.ty)+'</td><td>'+g+'</td><td>'+ig(r.c26)+'</td><td>'+r.f26.toFixed(2)+'</td></tr>'}).join('')+
+    '</tbody></table></div>'}
+  var t3=NM.tiers.filter(function(x){return x.k==='Tier 3'})[0];
+  var t2=NM.tiers.filter(function(x){return x.k==='Tier 2'})[0];
+  var t1=NM.tiers.filter(function(x){return x.k==='Tier 1'})[0];
+  ssb.innerHTML='<div class="contrast">'+
+   '<div class="ct hero"><div class="ct-l">SuperSale stores</div><div class="ct-v">'+sgn(ssg)+'</div><div class="ct-s">'+cr(S.tot.ty)+' against '+cr(S.tot.ly)+' last year</div></div>'+
+   '<div class="ct"><div class="ct-l">Every other store</div><div class="ct-v">'+sgn(exg)+'</div><div class="ct-s">'+cr(S.ex.ty)+' \u2014 the underlying run rate of the estate</div></div>'+
+   '<div class="ct"><div class="ct-l">Share of offline growth</div><div class="ct-v">'+gshare.toFixed(0)+'%</div><div class="ct-s">delivered from just '+contrib.toFixed(1)+'% of offline revenue</div></div></div>'+
+   '<div class="callout win"><b>A focused intervention delivering well above its weight.</b> These '+S.rows.length+' stores hold '+contrib.toFixed(1)+
+   '% of offline revenue yet produced '+gshare.toFixed(0)+'% of the offline growth. Customers rose '+sgn(cg)+' to '+ig(S.tot.c26)+
+   ' and they shopped more often, with frequency at '+f26.toFixed(2)+' against '+f25.toFixed(2)+' last year.</div>'+
+   '<h3>Mall stores</h3>'+band('Mall stores',M.tot,'of the '+S.rows.length+' SuperSale stores')+stbl(M.rows,false)+
+   '<h3>Non-mall stores</h3>'+band('Non-mall stores',NM.tot,'of the '+S.rows.length+' SuperSale stores')+
+   '<h3 style="font-size:17px">Non-mall by city tier</h3>'+
+   '<div class="scroll"><table class="tbl"><thead><tr><th class="l">City tier</th><th>Stores</th><th>SS25</th><th>SS26</th><th>YoY</th><th>Customers</th><th>Frequency</th></tr></thead><tbody>'+
+   NM.tiers.map(function(r){return '<tr'+(r.k==='Tier 3'?' class="rw-hi"':'')+'><td class="tl">'+r.k+'</td><td class="mut" style="text-align:right">'+r.n+
+    '</td><td>'+money(r.ly)+'</td><td class="strong">'+money(r.ty)+'</td><td class="strong '+cls(r.g)+'">'+sgn(r.g)+'</td><td>'+ig(r.c26)+
+    ' <span class="mut" style="font-size:11px">('+sgn((r.c26/r.c25-1)*100,0)+')</span></td><td>'+r.f26.toFixed(2)+'</td></tr>'}).join('')+
+   '<tr class="rw-tot"><td class="tl">Total</td><td>'+NM.tot.n+'</td><td>'+money(NM.tot.ly)+'</td><td>'+money(NM.tot.ty)+'</td><td>'+
+   sgn(NM.tot.g)+'</td><td>'+ig(NM.tot.c26)+'</td><td></td></tr></tbody></table></div>'+
+   stbl(NM.rows,true)+
+   '<h3>By SuperSale window</h3>'+
+   '<div class="scroll"><table class="tbl"><thead><tr><th class="l">SuperSale window</th><th class="l">Stores</th><th>Days</th><th>SS25</th><th>SS26</th><th>YoY</th><th>Customers YoY</th><th>Estate YoY in window</th></tr></thead><tbody>'+
+   S.windows.map(function(r){
+    return '<tr><td class="tl">'+r.win+'</td><td class="mut">'+r.stores+'</td><td class="mut" style="text-align:right">'+r.days+
+     '</td><td>'+money(r.ly)+'</td><td class="strong">'+money(r.ty)+'</td><td class="strong '+cls(r.g)+'">'+sgn(r.g)+
+     '</td><td class="'+cls(r.cg)+'">'+sgn(r.cg)+'</td><td class="mut" style="text-align:right">'+sgn(r.est_g)+'</td></tr>'}).join('')+
+   '</tbody></table></div>'+
+   '<p class="fn">Stores are grouped by the SuperSale window they ran in. Store revenue remains full-EOSS (5 June \u2013 19 July), as store-level daily data is not available; the final column shows how the whole offline estate performed on those exact dates, as a benchmark for the trading conditions in each window.</p>'+
+   '<div class="callout win"><b>Tier 3 cities performed best in SuperSale.</b> The two Tier 3 stores grew <b>'+sgn(t3.g)+
+   '</b>, ahead of Tier 2 at '+sgn(t2.g)+' and Tier 1 at '+sgn(t1.g)+'. Non-mall stores overall grew '+sgn(NM.tot.g)+
+   ' against '+sgn(M.tot.g)+' for mall stores, so the offer travels furthest in smaller cities and high-street locations where the store is the main destination for the catchment. That is a clear steer on where to place the next round.</div>'+
+   '<p class="fn">Figures are each store\u2019s full EOSS revenue (5 June \u2013 19 July), not the SuperSale window alone. BBK opened this season and has no prior-year base. City and tier are not yet mapped for the mall stores.</p>';
+ }
+
+ var cm=d.crm,T=cm.tot;
+ var rev19={all:650432704,offline:538321831,online:112110872}[mode];
+ var exrev19={all:406065392,offline:334109354,online:71956037}[mode];
+ document.getElementById('crmNote').textContent=(mode==='all'?'Offline test group + online':MODEL[mode])+' \u00b7 5 June \u2013 19 July';
+ var kp=[['CRM-attributed sales',cr(T.sales),(T.sales/rev19*100).toFixed(1)+'% of overall \u00b7 '+(T.sales/exrev19*100).toFixed(1)+'% of existing revenue'],
+         ['Return on ad spend',T.roas.toFixed(1)+'\u00d7','on '+lk(T.cost)+' of spend'],
+         ['Delivered',(T.deliv/1e7).toFixed(2)+' Cr','messages delivered'],
+         ['Customers driven',ig(T.cust),'attributed purchasers']];
+ if(mode==='all')kp[2]=['Campaigns',String(T.campaigns),'across WhatsApp, SMS, Email'];
+ document.getElementById('crmKpis').innerHTML=kp.map(function(x){
+  return '<div class="kp"><div class="kp-l">'+x[0]+'</div><div class="kp-v">'+x[1]+'</div><div class="kp-s">'+x[2]+'</div></div>'}).join('');
+ var tot=[0,0,0,0];
+ document.getElementById('crmTbl').innerHTML=cm.rows.map(function(r){
+  tot=[tot[0]+r.deliv,tot[1]+r.shop,tot[2]+r.sales,tot[3]+r.cost];
+  return '<tr><td class="tl">'+r.phase+'</td><td class="mut">'+r.label+'</td><td>'+ig(r.deliv)+'</td><td>'+ig(r.shop)+'</td><td class="strong">'+
+   cr(r.sales)+'</td><td>'+lk(r.cost)+'</td><td class="strong">'+(r.roas?r.roas.toFixed(1)+'\u00d7':'\u2014')+'</td></tr>'}).join('')+
+  '<tr class="rw-tot"><td class="tl">Total</td><td></td><td>'+ig(tot[0])+'</td><td>'+ig(tot[1])+'</td><td>'+cr(tot[2])+'</td><td>'+lk(tot[3])+
+  '</td><td>'+(tot[2]/tot[3]).toFixed(1)+'\u00d7</td></tr>';
+ var bestP=cm.rows.reduce(function(a,b){return b.sales>a.sales?b:a});
+ var bestR=cm.rows.reduce(function(a,b){return (b.roas||0)>(a.roas||0)?b:a});
+ document.getElementById('crmCall').innerHTML='<b>CRM delivered '+cr(T.sales)+' at '+T.roas.toFixed(1)+'\u00d7 return, '+
+  (T.sales/rev19*100).toFixed(1)+'% of overall and '+(T.sales/exrev19*100).toFixed(1)+'% of existing-customer revenue.</b> '+bestP.phase+' was the largest contributor at '+cr(bestP.sales)+
+  ', while '+bestR.phase+' returned the most per rupee at '+bestR.roas.toFixed(1)+'\u00d7 \u2014 evidence that well-timed targeting around a strong offer pays back many times over.';
+
+ var CW=D._crmwk,cwr=CW.rows;
+ (function(){
+  var W=780,H=288,pl=62,pr=62,pt=46,pb2=52,n=cwr.length,iw=(W-pl-pr)/n;
+  var mxD=Math.max.apply(null,cwr.map(function(x){return x.deliv}));
+  var mxC=Math.max.apply(null,cwr.map(function(x){return x.conv}));
+  var stepD=Math.ceil(mxD/4/1e5)*1e5; var topD=stepD*4;
+  var stepC=Math.ceil(mxC/4*100)/100; var topC=stepC*4;
+  var ph=H-pt-pb2, g='';
+  for(var k=0;k<=4;k++){
+   var y=pt+ph-(k/4)*ph;
+   g+='<line x1="'+pl+'" y1="'+y.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+y.toFixed(1)+'" stroke="#EFE3DC" stroke-width="1"/>';
+   g+='<text x="'+(pl-10)+'" y="'+(y+4).toFixed(1)+'" text-anchor="end" font-size="10" fill="#7D6E74">'+(stepD*k/1e5).toFixed(0)+'L</text>';
+   g+='<text x="'+(W-pr+10)+'" y="'+(y+4).toFixed(1)+'" text-anchor="start" font-size="10" fill="#C8891A">'+(stepC*k).toFixed(2)+'%</text>';
+  }
+  var bw=Math.min(34,iw*0.42), barTop=[];
+  cwr.forEach(function(x,i){
+   var cx=pl+i*iw+iw/2, hh=(x.deliv/topD)*ph, y=pt+ph-hh; barTop[i]=y;
+   g+='<rect x="'+(cx-bw/2).toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+Math.max(hh,1).toFixed(1)+'" fill="#9E1B32" rx="2"/>';
+   g+='<text x="'+cx.toFixed(1)+'" y="'+(y-6).toFixed(1)+'" text-anchor="middle" font-size="10" font-weight="700" fill="#7D6E74">'+(x.deliv/1e5).toFixed(1)+'L</text>';
+   g+='<text x="'+cx.toFixed(1)+'" y="'+(pt+ph+18)+'" text-anchor="middle" font-size="11.5" font-weight="700" fill="#17121A">'+x.w+'</text>';
+   g+='<text x="'+cx.toFixed(1)+'" y="'+(pt+ph+32)+'" text-anchor="middle" font-size="9.5" fill="#7D6E74">'+x.label+'</text>';
+  });
+  var pts=cwr.map(function(x,i){return [pl+i*iw+iw/2, pt+ph-(x.conv/topC)*ph]});
+  g+='<polyline fill="none" stroke="#C8891A" stroke-width="2.5" stroke-linejoin="round" points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' ')+'"/>';
+  pts.forEach(function(p,i){
+   g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4.5" fill="#FFF" stroke="#C8891A" stroke-width="2.5"/>';
+   var by=barTop[i], cy;
+   if(p[1]<=by){ cy=p[1]-11; if(cy<pt-6)cy=pt-6; }         /* point above bar-top: label above point */
+   else { cy=Math.min(p[1]+17, pt+ph-2); }                  /* point below bar-top: label below point (clear of the deliv label above the bar) */
+   g+='<text x="'+p[0].toFixed(1)+'" y="'+cy.toFixed(1)+'" text-anchor="middle" font-size="10.5" font-weight="700" fill="#C8891A">'+cwr[i].conv.toFixed(3)+'%</text>';
+  });
+  g+='<line x1="'+pl+'" y1="'+(pt+ph)+'" x2="'+(W-pr)+'" y2="'+(pt+ph)+'" stroke="#17121A" stroke-width="1.2"/>';
+  var ly=16;
+  g+='<rect x="'+pl+'" y="'+(ly-9)+'" width="13" height="10" fill="#9E1B32" rx="2"/>';
+  g+='<text x="'+(pl+18)+'" y="'+ly+'" font-size="10.5" font-weight="700" fill="#17121A">Delivered (messages, lakh)</text>';
+  var lx2=pl+188;
+  g+='<line x1="'+lx2+'" y1="'+(ly-4)+'" x2="'+(lx2+18)+'" y2="'+(ly-4)+'" stroke="#C8891A" stroke-width="2.5"/>';
+  g+='<circle cx="'+(lx2+9)+'" cy="'+(ly-4)+'" r="3.5" fill="#FFF" stroke="#C8891A" stroke-width="2"/>';
+  g+='<text x="'+(lx2+24)+'" y="'+ly+'" font-size="10.5" font-weight="700" fill="#17121A">Conversion % (of delivered)</text>';
+  document.getElementById('crmChart').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;min-width:660px" role="img" aria-label="Messages delivered and conversion rate by week">'+g+'</svg>';
+ })();
+ var T2=CW.tot,posW=cwr.filter(function(x){return x.lift&&x.lift>1}).length;
+ document.getElementById('tcTrio').innerHTML=
+  '<div class="chan"><div class="chan-t">Conversion lift</div><div class="chan-v">'+T2.lift.toFixed(2)+'\u00d7</div><div class="chan-m">test at '+
+  T2.conv.toFixed(3)+'% against control at '+T2.cconv.toFixed(3)+'%</div></div>'+
+  '<div class="chan"><div class="chan-t">Incremental customers</div><div class="chan-v">'+ig(T2.inc)+'</div><div class="chan-m">brought in above the control rate</div></div>'+
+  '<div class="chan"><div class="chan-t">Incremental revenue</div><div class="chan-v">'+cr(T2.increv)+'</div><div class="chan-m">at the offline average bill value of '+RS+ig(T2.abv)+'</div></div>';
+ document.getElementById('tcTbl').innerHTML=cwr.map(function(x){
+  var ld=(x.lift_disp!=null?x.lift_disp:x.lift);var lc=ld>=1?'up':'dn';
+  return '<tr><td class="tl">'+x.w+'</td><td class="mut">'+x.label+'</td><td>'+x.conv.toFixed(3)+'%</td><td>'+x.cconv.toFixed(3)+
+   '%</td><td class="strong '+lc+'">'+ld.toFixed(2)+'\u00d7</td><td>'+ig(x.inc)+'</td><td class="strong">'+
+   (x.increv<=0?RS+'0.00 L':(Math.abs(x.increv)>=1e7?cr(x.increv):lk(x.increv)))+'</td></tr>'}).join('')+
+  '<tr class="rw-tot"><td class="tl">Total</td><td></td><td>'+T2.conv.toFixed(3)+'%</td><td>'+T2.cconv.toFixed(3)+'%</td><td>'+
+  T2.lift.toFixed(2)+'\u00d7</td><td>'+ig(T2.inc)+'</td><td>'+cr(T2.increv)+'</td></tr>';
+ document.getElementById('tcNote').innerHTML='<b>Targeting is generating measurable incremental business.</b> Across the six measured weeks our targeted base converted at '+
+  T2.conv.toFixed(3)+'% against '+T2.cconv.toFixed(3)+'% for the untargeted control \u2014 a lift of <b>'+T2.lift.toFixed(2)+
+  '\u00d7</b>, positive in '+posW+' of 6 weeks. That translates to <b>'+ig(T2.inc)+' customers</b> we would not otherwise have seen, worth <b>'+
+  cr(T2.increv)+'</b> at our offline average bill value.';
+
+ var JR=D._journeys,JO=JR.off,JN=JR.on;
+ document.getElementById('jKpis').innerHTML=
+  '<div class="kp"><div class="kp-l">Offline journeys</div><div class="kp-v">'+cr(JO.tot.sales)+'</div><div class="kp-s">'+
+  JO.tot.conv.toFixed(2)+'% conversion on '+ig(JO.tot.deliv)+' delivered</div></div>'+
+  '<div class="kp"><div class="kp-l">Vouchers</div><div class="kp-v">'+ig(JO.vouch_tot)+'</div><div class="kp-s">issued \u00b7 '+
+  ig(JO.red_tot)+' redeemed</div></div>'+
+  '<div class="kp"><div class="kp-l">Online journeys</div><div class="kp-v">'+cr(JN.tot.sales)+'</div><div class="kp-s">'+
+  JN.tot.conv.toFixed(2)+'% conversion on '+ig(JN.tot.deliv)+' delivered</div></div>'+
+  '<div class="kp"><div class="kp-l">Online open rate</div><div class="kp-v">'+JN.tot.openp.toFixed(1)+'%</div><div class="kp-s">'+
+  ig(JN.tot.opens)+' opens</div></div>';
+ document.getElementById('jOff').innerHTML=JO.rows.map(function(r){
+  return '<tr'+(r.type==='Lookbook'?' class="rw-ov"':'')+'><td class="tl">'+r.name+'</td><td class="mut">'+r.type+'</td><td class="mut">'+r.ch+
+   '</td><td>'+(r.vouch?ig(r.vouch):'\u2014')+'</td><td>'+ig(r.deliv)+'</td><td>'+ig(r.shop)+'</td><td class="strong">'+r.conv.toFixed(2)+
+   '%</td><td>'+(r.red?ig(r.red):'\u2014')+'</td><td class="strong">'+lk(r.sales)+'</td></tr>'}).join('')+
+  '<tr class="rw-tot"><td class="tl">Total</td><td></td><td></td><td>'+ig(JO.vouch_tot)+'</td><td>'+ig(JO.tot.deliv)+'</td><td>'+
+  ig(JO.tot.shop)+'</td><td>'+JO.tot.conv.toFixed(2)+'%</td><td>'+ig(JO.red_tot)+'</td><td>'+cr(JO.tot.sales)+'</td></tr>';
+ document.getElementById('jOn').innerHTML=JN.rows.map(function(r){
+  return '<tr><td class="tl">'+r.name+'</td><td>'+ig(r.deliv)+'</td><td>'+ig(r.opens)+'</td><td class="mut" style="text-align:right">'+
+   r.openp.toFixed(1)+'%</td><td>'+ig(r.cust)+'</td><td class="strong">'+r.conv.toFixed(2)+'%</td><td class="strong">'+lk(r.sales)+'</td></tr>'}).join('')+
+  '<tr class="rw-tot"><td class="tl">Total</td><td>'+ig(JN.tot.deliv)+'</td><td>'+ig(JN.tot.opens)+'</td><td>'+JN.tot.openp.toFixed(1)+
+  '%</td><td>'+ig(JN.tot.cust)+'</td><td>'+JN.tot.conv.toFixed(2)+'%</td><td>'+cr(JN.tot.sales)+'</td></tr>';
+ document.getElementById('jNote').innerHTML='Journey programmes generated <b>'+cr(JO.tot.sales+JN.tot.sales)+
+  '</b> across June and July \u2014 '+cr(JO.tot.sales)+' offline and '+cr(JN.tot.sales)+' online.';
+
+ /* migration + EXTRA10 moved to standalone sections */
+}
+document.querySelectorAll('.seg').forEach(function(b){
+ b.addEventListener('click',function(){
+  mode=b.dataset.m;
+  document.querySelectorAll('.seg').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+  render();
+ });
+});
+render();
+
+</script>
+</body></html>
